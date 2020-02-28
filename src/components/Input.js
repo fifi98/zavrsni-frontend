@@ -1,7 +1,7 @@
 import React from "react";
 
 const Input = props => {
-  const { type, name, error, label, value, onChange } = props;
+  const { type, name, error, label, value, onChange, autoFocus } = props;
 
   return (
     <div className="form-label-group">
@@ -12,7 +12,7 @@ const Input = props => {
         placeholder={label}
         value={value}
         onChange={onChange}
-        autoFocus
+        autoFocus={autoFocus}
       />
       <label>{label}</label>
     </div>

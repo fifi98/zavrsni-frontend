@@ -4,7 +4,10 @@ import "../css/Login.css";
 import Input from "../components/Input";
 
 const Login = () => {
-  const [input, setInput] = useState({ email: "", password: "" });
+  const [input, setInput] = useState({
+    email: "",
+    password: ""
+  });
   const [error, setError] = useState({ error: false, message: "" });
 
   const submitHandler = event => {
@@ -32,6 +35,7 @@ const Login = () => {
         value={input.email}
         error={error.error}
         onChange={changeHandler}
+        autoFocus
       />
 
       <Input

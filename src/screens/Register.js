@@ -68,7 +68,7 @@ const Login = () => {
               checked={input.userType === "restaurant"}
               onChange={changeHandler}
             />{" "}
-            Restaurant Owner
+            Restaurant
           </label>
         </div>
       </div>
@@ -80,6 +80,7 @@ const Login = () => {
         value={input.name}
         error={error.error}
         onChange={changeHandler}
+        autoFocus
       />
 
       <Input
