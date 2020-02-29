@@ -40,7 +40,7 @@ const Login = () => {
         <div className="btn-group btn-group-toggle w-100">
           <label
             className={
-              "btn btn-outline-secondary " +
+              "btn btn-outline-dark " +
               (input.userType === "customer" ? "active" : "")
             }
           >
@@ -56,7 +56,7 @@ const Login = () => {
           </label>
           <label
             className={
-              "btn btn-outline-secondary " +
+              "btn btn-outline-dark " +
               (input.userType === "restaurant" ? "active" : "")
             }
           >

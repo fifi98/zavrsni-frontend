@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/Login.css";
 import Input from "../components/Input";
+import API from "../util/api";
 
-const Login = () => {
+const Login = props => {
   const [input, setInput] = useState({
     email: "",
     password: ""
@@ -13,8 +14,20 @@ const Login = () => {
   const submitHandler = event => {
     event.preventDefault();
 
-    if (input.email.length === 0 || input.password.length === 0)
+    if (input.email.length === 0 || input.password.length === 0) {
       setError({ ...error, error: true });
+      return;
+    }
+
+    API.post("login", {
+      email: input.email,
+      password: input.password
+    })
+      .then(res => {
+        console.log(res);
+        props.history.push("/restaurant");
+      })
+      .catch(err => setError({ ...error, error: true }));
   };
 
   const changeHandler = event => {
