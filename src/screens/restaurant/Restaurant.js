@@ -1,53 +1,153 @@
-import React, { useEffect } from "react";
+import React from "react";
 import API from "../../util/api";
 import Table from "../../components/restaurant/Table";
 
 const Restaurant = props => {
-  useEffect(() => {
-    //console.log("Hey");
-  }, []);
-
   const handleLogout = () => {
     API.post("logout").then(res => {
-      console.log(res);
       props.history.push("/login");
     });
   };
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
-        <nav class="nav nav-underline">
-          <a class="nav-link active" href="#">
-            Dashboard
+      <nav className="navbar navbar-expand-lg fixed-top bg-white">
+        <nav className="nav nav-underline">
+          <a className="nav-link active" href="!#">
+            Nekaj
           </a>
 
-          <a class="nav-link" href="#">
-            Explore
+          <a className="nav-link " href="!#">
+            Nekaj drugo
           </a>
+
+          <li className="nav-item">
+            <a className="nav-link active" href="#">
+              Dashboard
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Edit tables
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Menu and Food
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Discounts
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Statistics
+            </a>
+          </li>
+          <button onClick={handleLogout}>Logout</button>
         </nav>
       </nav>
 
-      <br />
-
-      {/* <div className="col"> */}
       <div className="row">
-        <Table type="empty" id="1" />
-        <Table type="reserved" id="2" />
-        <Table type="occupied" id="3" />
-        <Table type="empty" id="1" />
-        <Table type="reserved" id="2" />
-        <Table type="occupied" id="3" />
-        <Table type="empty" id="1" />
-        <Table type="reserved" id="2" />
-        <Table type="occupied" id="3" />
-        <Table type="empty" id="1" />
-        <Table type="reserved" id="2" />
-        <Table type="occupied" id="3" />
-      </div>
-      {/* </div> */}
+        <div className="col-3">
+          <div class="my-3 p-3 bg-white">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Served</h6>
+            <div class="media text-muted pt-3">
+              <svg
+                class="bd-placeholder-img mr-2 rounded"
+                width="32"
+                height="32"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+                aria-label="Placeholder: 32x32"
+              >
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#007bff"></rect>
+                <text x="50%" y="50%" fill="#007bff" dy=".3em">
+                  32x32
+                </text>
+              </svg>
+              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <strong class="d-block text-gray-dark">@username</strong>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.
+              </p>
+            </div>
 
-      <button onClick={handleLogout}>Logout</button>
+            <div class="media text-muted pt-3">
+              <svg
+                class="bd-placeholder-img mr-2 rounded"
+                width="32"
+                height="32"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+                aria-label="Placeholder: 32x32"
+              >
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#007bff"></rect>
+                <text x="50%" y="50%" fill="#007bff" dy=".3em">
+                  32x32
+                </text>
+              </svg>
+              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <strong class="d-block text-gray-dark">@username</strong>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.
+              </p>
+            </div>
+
+            <div class="media text-muted pt-3">
+              <svg
+                class="bd-placeholder-img mr-2 rounded"
+                width="32"
+                height="32"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+                aria-label="Placeholder: 32x32"
+              >
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#007bff"></rect>
+                <text x="50%" y="50%" fill="#007bff" dy=".3em">
+                  32x32
+                </text>
+              </svg>
+              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <strong class="d-block text-gray-dark">@username</strong>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-9">
+          <div class="my-3 p-3 bg-white">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Tables</h6>
+            <br />
+            <div className="row p-2">
+              <Table type="Empty" id="1" />
+              <Table type="Reserved" id="2" />
+              <Table type="Occupied" id="3" />
+              <Table type="Empty" id="4" />
+              <Table type="Empty" id="5" />
+              <Table type="Empty" id="6" />
+              <Table type="Empty" id="7" />
+              <Table type="Empty" id="8" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

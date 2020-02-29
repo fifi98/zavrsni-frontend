@@ -30,88 +30,90 @@ const Login = () => {
   };
 
   return (
-    <form className="form-signin">
-      <div className="text-center mb-4">
-        <h1 className="h3 mb-3 font-weight-normal">Register</h1>
-        <p>Please login below using your credentials.</p>
-      </div>
-
-      <div className="form-label-group d-flex">
-        <div className="btn-group btn-group-toggle w-100">
-          <label
-            className={
-              "btn btn-outline-dark " +
-              (input.userType === "customer" ? "active" : "")
-            }
-          >
-            <FontAwesomeIcon icon={faUser} />
-            <input
-              type="radio"
-              name="userType"
-              value="customer"
-              checked={input.userType === "customer"}
-              onChange={changeHandler}
-            />{" "}
-            Customer
-          </label>
-          <label
-            className={
-              "btn btn-outline-dark " +
-              (input.userType === "restaurant" ? "active" : "")
-            }
-          >
-            <FontAwesomeIcon icon={faUtensils} />
-            <input
-              type="radio"
-              name="userType"
-              value="restaurant"
-              checked={input.userType === "restaurant"}
-              onChange={changeHandler}
-            />{" "}
-            Restaurant
-          </label>
+    <div className="h-100 d-flex flex-row justify-content-center align-items-center">
+      <form className="form-signin">
+        <div className="text-center mb-4">
+          <h1 className="h3 mb-3 font-weight-normal">Register</h1>
+          <p>Please login below using your credentials.</p>
         </div>
-      </div>
 
-      <Input
-        type="text"
-        name="name"
-        label="Full name"
-        value={input.name}
-        error={error.error}
-        onChange={changeHandler}
-        autoFocus
-      />
+        <div className="form-label-group d-flex">
+          <div className="btn-group btn-group-toggle w-100">
+            <label
+              className={
+                "btn btn-outline-dark " +
+                (input.userType === "customer" ? "active" : "")
+              }
+            >
+              <FontAwesomeIcon icon={faUser} />
+              <input
+                type="radio"
+                name="userType"
+                value="customer"
+                checked={input.userType === "customer"}
+                onChange={changeHandler}
+              />{" "}
+              Customer
+            </label>
+            <label
+              className={
+                "btn btn-outline-dark " +
+                (input.userType === "restaurant" ? "active" : "")
+              }
+            >
+              <FontAwesomeIcon icon={faUtensils} />
+              <input
+                type="radio"
+                name="userType"
+                value="restaurant"
+                checked={input.userType === "restaurant"}
+                onChange={changeHandler}
+              />{" "}
+              Restaurant
+            </label>
+          </div>
+        </div>
 
-      <Input
-        type="email"
-        name="email"
-        label="Email address"
-        value={input.email}
-        error={error.error}
-        onChange={changeHandler}
-      />
+        <Input
+          type="text"
+          name="name"
+          label="Full name"
+          value={input.name}
+          error={error.error}
+          onChange={changeHandler}
+          autoFocus
+        />
 
-      <Input
-        type="password"
-        name="password"
-        label="Password"
-        value={input.password}
-        error={error.error}
-        onChange={changeHandler}
-      />
+        <Input
+          type="email"
+          name="email"
+          label="Email address"
+          value={input.email}
+          error={error.error}
+          onChange={changeHandler}
+        />
 
-      <div className="checkbox mb-3">
-        <Link to="/login">Already have an account?</Link>
-      </div>
-      <button
-        className="btn btn-lg btn-primary btn-block"
-        type="submit"
-        onClick={submitHandler}
-      >
-        Sign up
-      </button>
-    </form>
+        <Input
+          type="password"
+          name="password"
+          label="Password"
+          value={input.password}
+          error={error.error}
+          onChange={changeHandler}
+        />
+
+        <div className="checkbox mb-3">
+          <Link to="/login">Already have an account?</Link>
+        </div>
+        <button
+          className="btn btn-lg btn-primary btn-block"
+          type="submit"
+          onClick={submitHandler}
+        >
+          Sign up
+        </button>
+      </form>
+    </div>
   );
 };
 

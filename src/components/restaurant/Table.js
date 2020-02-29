@@ -7,20 +7,22 @@ const Table = props => {
   };
 
   let color;
-  if (props.type === "empty") color = tableColor.empty;
-  if (props.type === "occupied") color = tableColor.occupied;
-  if (props.type === "reserved") color = tableColor.reserved;
+  if (props.type === "Empty") color = tableColor.empty;
+  if (props.type === "Occupied") color = tableColor.occupied;
+  if (props.type === "Reserved") color = tableColor.reserved;
 
   return (
-    <a href="#" onClick={handleClick}>
-      <div
-        className="card mb-3"
-        style={{ width: 200, overflow: "hidden", margin: 20 }}
-      >
+    <a
+      href="!#"
+      className="restaurantTableLink m-2"
+      onClick={handleClick}
+      style={{ width: "15%" }}
+    >
+      <div className="card" style={{ overflow: "hidden" }}>
         <div className="row no-gutters">
           <div className="col-md-11">
             <div className="card-body">
-              <h5 className="card-title">T{props.id}</h5>
+              <h6 className="card-title">T{props.id}</h6>
               <p className="card-text"></p>
               <p className="card-text">
                 <small className="text-muted">{props.type}</small>

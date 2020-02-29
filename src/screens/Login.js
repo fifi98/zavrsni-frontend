@@ -35,43 +35,45 @@ const Login = props => {
   };
 
   return (
-    <form className="form-signin">
-      <div className="text-center mb-4">
-        <h1 className="h3 mb-3 font-weight-normal">Login</h1>
-        <p>Please login below using your credentials.</p>
-      </div>
+    <div className="h-100 d-flex flex-row justify-content-center align-items-center">
+      <form className="form-signin">
+        <div className="text-center mb-4">
+          <h1 className="h3 mb-3 font-weight-normal">Login</h1>
+          <p>Please login below using your credentials.</p>
+        </div>
 
-      <Input
-        type="email"
-        name="email"
-        label="Email address"
-        value={input.email}
-        error={error.error}
-        onChange={changeHandler}
-        autoFocus
-      />
+        <Input
+          type="email"
+          name="email"
+          label="Email address"
+          value={input.email}
+          error={error.error}
+          onChange={changeHandler}
+          autoFocus
+        />
 
-      <Input
-        type="password"
-        name="password"
-        label="Password"
-        value={input.password}
-        error={error.error}
-        onChange={changeHandler}
-      />
+        <Input
+          type="password"
+          name="password"
+          label="Password"
+          value={input.password}
+          error={error.error}
+          onChange={changeHandler}
+        />
 
-      <div className="mb-3">
-        <Link to="/register">Don't have an account?</Link>
-      </div>
+        <div className="mb-3">
+          <Link to="/register">Don't have an account?</Link>
+        </div>
 
-      <button
-        className="btn btn-lg btn-primary btn-block"
-        type="submit"
-        onClick={submitHandler}
-      >
-        Sign in
-      </button>
-    </form>
+        <button
+          className="btn btn-lg btn-primary btn-block"
+          type="submit"
+          onClick={submitHandler}
+        >
+          Sign in
+        </button>
+      </form>
+    </div>
   );
 };
 
