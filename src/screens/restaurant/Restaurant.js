@@ -1,6 +1,15 @@
 import React from "react";
 import API from "../../util/api";
 import Table from "../../components/restaurant/Table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUtensils,
+  faPercentage,
+  faChartLine,
+  faChair,
+  faFileInvoice,
+  faTag
+} from "@fortawesome/free-solid-svg-icons";
 
 const Restaurant = props => {
   const handleLogout = () => {
@@ -11,48 +20,69 @@ const Restaurant = props => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg fixed-top bg-white">
+      <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm">
         <nav className="nav nav-underline">
-          <a className="nav-link active" href="!#">
-            Nekaj
-          </a>
-
-          <a className="nav-link " href="!#">
-            Nekaj drugo
-          </a>
-
-          <li className="nav-item">
-            <a className="nav-link active" href="#">
-              Dashboard
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Edit tables
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Menu and Food
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Discounts
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Statistics
-            </a>
-          </li>
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout} className="btn btn-primary">
+            Logout
+          </button>
         </nav>
       </nav>
 
       <div className="row">
-        <div className="col-3">
-          <div class="my-3 p-3 bg-white">
+        <div className="col-xs-12 col-md-3">
+          <div className="my-3 p-3 bg-white rounded shadow-sm">
+            <ul class="nav flex-column nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <FontAwesomeIcon icon={faTag} /> Orders
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <FontAwesomeIcon icon={faFileInvoice} /> Reservations
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <FontAwesomeIcon icon={faChair} /> Tables
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <FontAwesomeIcon icon={faUtensils} /> Menu and Food
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <FontAwesomeIcon icon={faPercentage} /> Discounts
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <FontAwesomeIcon icon={faChartLine} /> Statistics
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="col-xs-12 col-md-9">
+          <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Tables</h6>
+
+            <div className="row mt-2 p-2">
+              <Table type="Empty" id="1" />
+              <Table type="Reserved" id="2" />
+              <Table type="Occupied" id="3" />
+              <Table type="Empty" id="4" />
+              <Table type="Empty" id="5" />
+              <Table type="Empty" id="6" />
+              <Table type="Empty" id="7" />
+              <Table type="Empty" id="8" />
+            </div>
+          </div>
+
+          <div class="my-3 p-3 bg-white rounded shadow-sm">
             <h6 class="border-bottom border-gray pb-2 mb-0">Served</h6>
             <div class="media text-muted pt-3">
               <svg
@@ -127,23 +157,6 @@ const Restaurant = props => {
                 tellus ac cursus commodo, tortor mauris condimentum nibh, ut
                 fermentum massa justo sit amet risus.
               </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-9">
-          <div class="my-3 p-3 bg-white">
-            <h6 class="border-bottom border-gray pb-2 mb-0">Tables</h6>
-            <br />
-            <div className="row p-2">
-              <Table type="Empty" id="1" />
-              <Table type="Reserved" id="2" />
-              <Table type="Occupied" id="3" />
-              <Table type="Empty" id="4" />
-              <Table type="Empty" id="5" />
-              <Table type="Empty" id="6" />
-              <Table type="Empty" id="7" />
-              <Table type="Empty" id="8" />
             </div>
           </div>
         </div>

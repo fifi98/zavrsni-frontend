@@ -8,6 +8,7 @@ import PrivateRoute from "./components/routes/PrivateRoute";
 import "popper.js";
 import "jquery/src/jquery";
 import "bootstrap/dist/css/bootstrap.css";
+// import "./css/bootstrap-4.css";
 import "bootstrap/dist/js/bootstrap.js";
 
 function App() {

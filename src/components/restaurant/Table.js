@@ -18,7 +18,7 @@ const Table = props => {
       onClick={handleClick}
       style={{ width: "15%" }}
     >
-      <div className="card" style={{ overflow: "hidden" }}>
+      <div className="card" style={{ overflow: "hidden", height: 100 }}>
         <div className="row no-gutters">
           <div className="col-md-11">
             <div className="card-body">
