@@ -19,7 +19,7 @@ const Login = props => {
       return;
     }
 
-    API.post("login", {
+    API.post("/user/login", {
       email: input.email,
       password: input.password
     })

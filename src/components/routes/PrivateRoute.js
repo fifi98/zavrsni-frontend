@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.post("verify")
+    API.post("/user/verify")
       .then(res => {
         if (res.status === 200) {
           setAuthenticated(true);

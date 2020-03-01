@@ -1,19 +1,11 @@
 import React from "react";
 import API from "../../util/api";
 import Table from "../../components/restaurant/Table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUtensils,
-  faPercentage,
-  faChartLine,
-  faChair,
-  faFileInvoice,
-  faTag
-} from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "../../components/restaurant/Sidebar";
 
 const Restaurant = props => {
   const handleLogout = () => {
-    API.post("logout").then(res => {
+    API.post("/user/logout").then(res => {
       props.history.push("/login");
     });
   };
@@ -30,67 +22,12 @@ const Restaurant = props => {
 
       <div className="row dashboard">
         <div className="col-xs-12 col-md-12 col-lg-3">
-          <div className="my-3 bg-white rounded shadow-sm">
-            <ul class="nav flex-column nav-pills">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <FontAwesomeIcon className="mr-2" fixedWidth icon={faTag} />
-                  Orders
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <FontAwesomeIcon
-                    className="mr-2"
-                    fixedWidth
-                    icon={faFileInvoice}
-                  />
-                  Reservations
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <FontAwesomeIcon className="mr-2" fixedWidth icon={faChair} />
-                  Tables
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <FontAwesomeIcon
-                    className="mr-2"
-                    fixedWidth
-                    icon={faUtensils}
-                  />
-                  Menu and Food
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <FontAwesomeIcon
-                    className="mr-2"
-                    fixedWidth
-                    icon={faPercentage}
-                  />
-                  Discounts
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <FontAwesomeIcon
-                    className="mr-2"
-                    fixedWidth
-                    icon={faChartLine}
-                  />
-                  Statistics
-                </a>
-              </li>
-            </ul>
-          </div>
+          <Sidebar />
         </div>
 
         <div className="col-xs-12 col-md-12 col-lg-9">
-          <div class="my-3 p-3 bg-white rounded shadow-sm">
-            <h6 class="border-bottom border-gray pb-2 mb-0">Tables</h6>
+          <div className="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 className="border-bottom border-gray pb-2 mb-0">Tables</h6>
 
             <div className="row mt-2 p-2">
               <Table type="Empty" id="1" />
@@ -104,9 +41,9 @@ const Restaurant = props => {
             </div>
           </div>
 
-          <div class="my-3 p-3 bg-white rounded shadow-sm">
-            <h6 class="border-bottom border-gray pb-2 mb-0">Served</h6>
-            <div class="media text-muted pt-3">
+          <div className="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 className="border-bottom border-gray pb-2 mb-0">Served</h6>
+            <div className="media text-muted pt-3">
               <svg
                 class="bd-placeholder-img mr-2 rounded"
                 width="32"

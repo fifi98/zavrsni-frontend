@@ -1,5 +1,4 @@
 import React from "react";
-import { tableColor } from "../../constants/colors";
 
 const Table = props => {
   const handleClick = () => {
@@ -7,9 +6,9 @@ const Table = props => {
   };
 
   let color;
-  if (props.type === "Empty") color = tableColor.empty;
-  if (props.type === "Occupied") color = tableColor.occupied;
-  if (props.type === "Reserved") color = tableColor.reserved;
+  if (props.type === "Empty") color = "bg-success";
+  if (props.type === "Occupied") color = "bg-danger";
+  if (props.type === "Reserved") color = "bg-warning";
 
   return (
     <a
@@ -20,7 +19,7 @@ const Table = props => {
     >
       <div className="card" style={{ overflow: "hidden", height: 100 }}>
         <div className="row no-gutters">
-          <div className="col-md-11">
+          <div className="col-11">
             <div className="card-body">
               <h6 className="card-title">T{props.id}</h6>
               <p className="card-text"></p>
@@ -30,7 +29,7 @@ const Table = props => {
             </div>
           </div>
 
-          <div className="col-md-1" style={{ backgroundColor: color }}></div>
+          <div className={"col-1 " + color}></div>
         </div>
       </div>
     </a>

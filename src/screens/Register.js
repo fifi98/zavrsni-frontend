@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUtensils } from "@fortawesome/free-solid-svg-icons";
 import Input from "../components/Input";
+import API from "../util/api";
 
 import "../css/Login.css";
 
@@ -22,7 +23,9 @@ const Login = () => {
     if (input.email.length === 0 || input.password.length === 0)
       setError({ ...error, error: true });
 
-    alert(JSON.stringify(input));
+    API.post("register", input)
+      .then(res => console.log(res))
+      .catch(err => setError(true));
   };
 
   const changeHandler = event => {
