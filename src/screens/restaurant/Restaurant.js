@@ -20,7 +20,7 @@ const Restaurant = props => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm">
+      <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-primary shadow-sm">
         <nav className="nav nav-underline">
           <button onClick={handleLogout} className="btn btn-primary">
             Logout
@@ -29,44 +29,66 @@ const Restaurant = props => {
       </nav>
 
       <div className="row dashboard">
-        <div className="col-xs-12 col-md-3">
-          <div className="my-3 p-3 bg-white rounded shadow-sm">
+        <div className="col-xs-12 col-md-12 col-lg-3">
+          <div className="my-3 bg-white rounded shadow-sm">
             <ul class="nav flex-column nav-pills">
               <li class="nav-item">
                 <a class="nav-link active" href="#">
-                  <FontAwesomeIcon icon={faTag} /> Orders
+                  <FontAwesomeIcon className="mr-2" fixedWidth icon={faTag} />
+                  Orders
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <FontAwesomeIcon icon={faFileInvoice} /> Reservations
+                  <FontAwesomeIcon
+                    className="mr-2"
+                    fixedWidth
+                    icon={faFileInvoice}
+                  />
+                  Reservations
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <FontAwesomeIcon icon={faChair} /> Tables
+                  <FontAwesomeIcon className="mr-2" fixedWidth icon={faChair} />
+                  Tables
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <FontAwesomeIcon icon={faUtensils} /> Menu and Food
+                  <FontAwesomeIcon
+                    className="mr-2"
+                    fixedWidth
+                    icon={faUtensils}
+                  />
+                  Menu and Food
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <FontAwesomeIcon icon={faPercentage} /> Discounts
+                  <FontAwesomeIcon
+                    className="mr-2"
+                    fixedWidth
+                    icon={faPercentage}
+                  />
+                  Discounts
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <FontAwesomeIcon icon={faChartLine} /> Statistics
+                  <FontAwesomeIcon
+                    className="mr-2"
+                    fixedWidth
+                    icon={faChartLine}
+                  />
+                  Statistics
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="col-xs-12 col-md-9">
+        <div className="col-xs-12 col-md-12 col-lg-9">
           <div class="my-3 p-3 bg-white rounded shadow-sm">
             <h6 class="border-bottom border-gray pb-2 mb-0">Tables</h6>
 
