@@ -28,7 +28,7 @@ const Restaurant = props => {
         </nav>
       </nav>
 
-      <div className="row">
+      <div className="row dashboard">
         <div className="col-xs-12 col-md-3">
           <div className="my-3 p-3 bg-white rounded shadow-sm">
             <ul class="nav flex-column nav-pills">

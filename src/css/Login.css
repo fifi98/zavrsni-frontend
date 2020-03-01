@@ -12,8 +12,11 @@ body {
   background-color: #f9f9fa;
 }
 
-body {
+.dashboard {
   padding-top: 54px;
+}
+body {
+  /* padding-top: 54px; */
   background-color: #f9f9fa;
 }
 
