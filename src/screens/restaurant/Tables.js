@@ -6,6 +6,7 @@ import { faEdit, faTrash, faChair, faPlus, faQrcode } from "@fortawesome/free-so
 const Tables = () => {
   const [tables, setTables] = useState([]);
   const [add, setAdd] = useState(false);
+  const [input, setInput] = useState({ label: "" });
 
   useEffect(() => {
     API.get("/restaurant/4/tables").then(result => {
@@ -17,6 +18,21 @@ const Tables = () => {
 
   const handleAdd = () => {
     setAdd(!add);
+  };
+
+  const handleChange = event => {
+    setInput({ label: event.target.value });
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    API.post("/restaurant/4/tables", {
+      label: input.label
+    }).then(res => {
+      setTables(res.data.data);
+      setAdd(false);
+      setInput({ label: "" });
+    });
   };
 
   return (
@@ -39,10 +55,10 @@ const Tables = () => {
         <div className="mt-2">
           {add ? (
             <div class="alert alert-light border-bottom border-gray mb-4 pb-4" role="alert">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Table label</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                  <label htmlFor="exampleInputEmail1">Table label</label>
+                  <input type="text" class="form-control" value={input.label} onChange={handleChange} />
                 </div>
 
                 <button type="submit" class="btn btn-primary">
@@ -53,24 +69,27 @@ const Tables = () => {
           ) : (
             ""
           )}
-
-          <table className="table table-hover">
-            <tbody>
-              {tables.map(table => (
-                <tr>
-                  <td>{table.label}</td>
-                  <td className="text-center">
-                    <span className="badge badge-success">Empty</span>
-                  </td>
-                  <td className="text-right">
-                    <FontAwesomeIcon className="mr-2" fixedWidth icon={faQrcode} />
-                    <FontAwesomeIcon className="mr-2" fixedWidth icon={faEdit} />
-                    <FontAwesomeIcon className="mr-2" fixedWidth icon={faTrash} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {tables.length === 0 ? (
+            "There are no added tables yet!"
+          ) : (
+            <table className="table table-hover table-borderless">
+              <tbody>
+                {tables.map(table => (
+                  <tr className="border-bottom border-gray" id={table.table_id}>
+                    <td>{table.label}</td>
+                    <td className="text-center">
+                      <span className="badge badge-success">Empty</span>
+                    </td>
+                    <td className="text-right">
+                      <FontAwesomeIcon className="mr-2" fixedWidth icon={faQrcode} />
+                      <FontAwesomeIcon className="mr-2" fixedWidth icon={faEdit} />
+                      <FontAwesomeIcon className="mr-2" fixedWidth icon={faTrash} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </>
