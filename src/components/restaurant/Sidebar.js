@@ -14,7 +14,7 @@ const Sidebar = props => {
   console.log(props.location.pathname);
 
   return (
-    <div className="my-3 bg-white rounded shadow-sm">
+    <div className="my-3 bg-white rounded shadow-sm p-2">
       <ul className="nav flex-column nav-pills">
         <li className="nav-item">
           <Link

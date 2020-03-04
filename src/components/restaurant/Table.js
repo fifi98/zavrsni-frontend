@@ -11,12 +11,7 @@ const Table = props => {
   if (props.type === "Reserved") color = "bg-warning";
 
   return (
-    <a
-      href="!#"
-      className="restaurantTableLink m-2"
-      onClick={handleClick}
-      style={{ width: "15%" }}
-    >
+    <a href="!#" className="restaurantTableLink col-6 col-xl-2 col-lg-3 col-md-4 col-sm-4 mb-4" onClick={handleClick}>
       <div className="card" style={{ overflow: "hidden", height: 100 }}>
         <div className="row no-gutters">
           <div className="col-11">

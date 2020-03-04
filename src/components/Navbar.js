@@ -12,8 +12,9 @@ const Navbar = props => {
 
   return (
     <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
+      <nav className="nav nav-underline mr-auto">Restaurants</nav>
       <nav className="nav nav-underline">
-        <button onClick={handleLogout} className="btn btn-primary">
+        <button onClick={handleLogout} className="btn btn-dark">
           Logout
         </button>
       </nav>
