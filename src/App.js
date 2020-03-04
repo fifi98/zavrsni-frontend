@@ -2,13 +2,14 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
-import Restaurant from "./screens/restaurant/Restaurant";
-import User from "./screens/registeredUser/User";
-import PrivateRoute from "./components/routes/PrivateRoute";
+
+import RestaurantRoutes from "./components/routes/RestaurantRoutes";
+import CustomerRoutes from "./components/routes/CustomerRoutes";
+import GuestRoutes from "./components/routes/GuestRoutes";
+
 import "popper.js";
 import "jquery/src/jquery";
 import "bootstrap/dist/css/bootstrap.css";
-// import "./css/bootstrap-4.css";
 import "bootstrap/dist/js/bootstrap.js";
 
 function App() {
@@ -18,9 +19,14 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
 
-        <PrivateRoute path="/restaurant" component={Restaurant} />
+        <Route path="/restaurant" component={RestaurantRoutes} />
+        <Route path="/customer" component={CustomerRoutes} />
+        <Route path="/guest" component={GuestRoutes} />
 
-        <Route path="/user" component={User} />
+        {/* <PrivateRoute path="/restaurant" component={Restaurant} />
+        <PrivateRoute path="/customer" component={User} />
+
+        <Route path="/user" component={User} /> */}
       </Switch>
     </Router>
   );

@@ -25,7 +25,16 @@ const Login = props => {
     })
       .then(res => {
         console.log(res);
-        props.history.push("/restaurant");
+
+        if (res.data.success) {
+          if (res.data.user.type === "restaurant") {
+            props.history.push("/restaurant");
+          } else {
+            props.history.push("/customer");
+          }
+        } else {
+          setError({ error: true, message: "" });
+        }
       })
       .catch(err => setError({ ...error, error: true }));
   };
@@ -65,11 +74,7 @@ const Login = props => {
           <Link to="/register">Don't have an account?</Link>
         </div>
 
-        <button
-          className="btn btn-lg btn-primary btn-block"
-          type="submit"
-          onClick={submitHandler}
-        >
+        <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={submitHandler}>
           Sign in
         </button>
       </form>

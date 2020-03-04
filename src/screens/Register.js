@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUtensils } from "@fortawesome/free-solid-svg-icons";
@@ -10,9 +10,12 @@ import "../css/Login.css";
 const Login = () => {
   const [input, setInput] = useState({
     userType: "customer",
-    name: "",
+    fullName: "",
     email: "",
-    password: ""
+    password: "",
+    restaurantName: "",
+    restaurantAddress: "",
+    restaurantTelephone: ""
   });
 
   const [error, setError] = useState(false);
@@ -23,7 +26,7 @@ const Login = () => {
     if (input.email.length === 0 || input.password.length === 0)
       setError({ ...error, error: true });
 
-    API.post("register", input)
+    API.post("/user/register", input)
       .then(res => console.log(res))
       .catch(err => setError(true));
   };
@@ -77,15 +80,45 @@ const Login = () => {
           </div>
         </div>
 
-        <Input
-          type="text"
-          name="name"
-          label="Full name"
-          value={input.name}
-          error={error.error}
-          onChange={changeHandler}
-          autoFocus
-        />
+        {input.userType === "customer" ? (
+          <Input
+            type="text"
+            name="name"
+            label="Full name"
+            value={input.name}
+            error={error.error}
+            onChange={changeHandler}
+            autoFocus
+          />
+        ) : (
+          <Fragment>
+            <Input
+              type="text"
+              name="restaurantName"
+              label="Restaurant Name"
+              value={input.restaurantName}
+              error={error.error}
+              onChange={changeHandler}
+              autoFocus
+            />
+            <Input
+              type="text"
+              name="restaurantAddress"
+              label="Address"
+              value={input.restaurantAddress}
+              error={error.error}
+              onChange={changeHandler}
+            />
+            <Input
+              type="text"
+              name="restaurantTelephone"
+              label="Telephone Number"
+              value={input.restaurantTelephone}
+              error={error.error}
+              onChange={changeHandler}
+            />
+          </Fragment>
+        )}
 
         <Input
           type="email"

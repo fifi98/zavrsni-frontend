@@ -15,40 +15,40 @@ const Sidebar = () => {
     <div className="my-3 bg-white rounded shadow-sm">
       <ul className="nav flex-column nav-pills">
         <li className="nav-item">
-          <a className="nav-link active" href="#">
+          <Link to="/restaurant/orders" className="nav-link active">
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faTag} />
             Orders
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link">
+          <Link to="/restaurant/reservations" className="nav-link">
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faFileInvoice} />
             Reservations
           </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">
+          <Link to="/restaurant/tables" className="nav-link">
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faChair} />
             Tables
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">
+          <Link to="/restaurant/menufood" className="nav-link">
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faUtensils} />
             Menu and Food
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">
+          <Link to="/restaurant/discounts" className="nav-link">
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faPercentage} />
             Discounts
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">
+          <Link to="/restaurant/stats" className="nav-link">
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faChartLine} />
             Statistics
-          </a>
+          </Link>
         </li>
       </ul>
     </div>
