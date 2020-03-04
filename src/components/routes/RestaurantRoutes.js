@@ -9,13 +9,13 @@ import Stats from "../../screens/restaurant/Stats";
 import Navbar from "../Navbar";
 import Sidebar from "../restaurant/Sidebar";
 
-const RestaurantRoutes = () => {
+const RestaurantRoutes = props => {
   return (
     <>
-      <Navbar />
+      <Navbar {...props} />
       <div className="row dashboard">
         <div className="col-xs-12 col-md-12 col-lg-3">
-          <Sidebar />
+          <Sidebar {...props} />
         </div>
 
         <div className="col-xs-12 col-md-12 col-lg-9">

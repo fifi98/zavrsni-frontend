@@ -8,8 +8,10 @@ const Navbar = props => {
     });
   };
 
+  console.log(props);
+
   return (
-    <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-primary shadow-sm">
+    <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
       <nav className="nav nav-underline">
         <button onClick={handleLogout} className="btn btn-primary">
           Logout

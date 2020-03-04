@@ -9,15 +9,15 @@ body {
 }
 
 .container-fluid {
-  background-color: #f9f9fa;
+  background-color: #f4f5f9;
 }
 
 .dashboard {
-  padding-top: 54px;
+  padding-top: 60px;
 }
 body {
   /* padding-top: 54px; */
-  background-color: #f9f9fa;
+  background-color: #f4f5f9;
 }
 
 .restaurantTableLink {
