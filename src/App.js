@@ -20,8 +20,8 @@ function App() {
         <Route path="/register" component={Register} />
 
         <Route path="/restaurant" component={RestaurantRoutes} />
-        <Route path="/customer" component={CustomerRoutes} />
-        <Route path="/guest" component={GuestRoutes} />
+        {/* <Route path="/customer" component={CustomerRoutes} />
+        <Route path="/guest" component={GuestRoutes} /> */}
 
         {/* <PrivateRoute path="/restaurant" component={Restaurant} />
         <PrivateRoute path="/customer" component={User} />

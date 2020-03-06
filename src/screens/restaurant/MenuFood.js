@@ -9,9 +9,7 @@ const Tables = () => {
 
   useEffect(() => {
     API.get("/restaurant/4/tables").then(result => {
-      console.log(result.data.data);
       setTables(result.data.data);
-      console.log(tables);
     });
   }, []);
 

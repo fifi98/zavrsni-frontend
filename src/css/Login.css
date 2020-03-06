@@ -3,10 +3,28 @@ body {
   height: 100%;
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  background-color: #f4f5f9;
+  color: #f4f5f9;
+}
+
 .nav-link {
   font-weight: 400;
   color: #333;
 }
+
+/* .nav-link.active {
+  background-color: #343a40 !important;
+  color: #fff !important;
+}
+.nav-link.active:hover {
+  color: #fff !important;
+}
+.nav-link:hover {
+  color: #545b62 !important;
+} */
 
 .container-fluid {
   background-color: #f4f5f9;

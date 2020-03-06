@@ -8,8 +8,6 @@ const Navbar = props => {
     });
   };
 
-  console.log(props);
-
   return (
     <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
       <nav className="nav nav-underline mr-auto">Restaurants</nav>
