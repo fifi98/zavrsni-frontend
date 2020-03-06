@@ -1,17 +1,13 @@
 import React from "react";
 import Table from "../../components/restaurant/Table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
+import MainContainer from "../../components/MainContainer";
 
 const Restaurant = props => {
   return (
     <div>
-      <div className="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 className="border-bottom border-gray pb-2 mb-0">
-          <FontAwesomeIcon className="mr-2" fixedWidth icon={faTag} /> Orders
-        </h6>
-
-        <div className="row mt-2 p-2">
+      <MainContainer icon={faTag} title="Orders">
+        <div className="row mt-4 p-2">
           <Table type="Empty" id="1" />
           <Table type="Reserved" id="2" />
           <Table type="Occupied" id="3" />
@@ -21,7 +17,7 @@ const Restaurant = props => {
           <Table type="Empty" id="7" />
           <Table type="Empty" id="8" />
         </div>
-      </div>
+      </MainContainer>
 
       <div className="my-3 p-3 bg-white rounded shadow-sm">
         <h6 className="border-bottom border-gray pb-2 mb-0">Served</h6>
