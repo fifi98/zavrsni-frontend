@@ -35,9 +35,9 @@ const Tables = () => {
     });
   };
 
-  const handleDelete = tableId => {
-    if (window.confirm("Are you sure you want to delete this table?")) {
-      API.delete("/restaurant/4/tables/" + tableId).then(res => {
+  const handleDelete = categoryId => {
+    if (window.confirm("Are you sure you want to delete this category?")) {
+      API.delete("/restaurant/4/menu/categories/" + categoryId).then(res => {
         setCategories(res.data.data);
       });
     }
@@ -138,14 +138,14 @@ const Tables = () => {
                     <td className="text-right">
                       <FontAwesomeIcon
                         style={{ cursor: "pointer" }}
-                        onClick={() => handleEdit(table.table_id)}
+                        onClick={() => handleEdit(table.category_id)}
                         className="mr-2"
                         fixedWidth
                         icon={faEdit}
                       />
                       <FontAwesomeIcon
                         style={{ cursor: "pointer" }}
-                        onClick={() => handleDelete(table.table_id)}
+                        onClick={() => handleDelete(table.category_id)}
                         className="mr-2"
                         fixedWidth
                         icon={faTrash}
