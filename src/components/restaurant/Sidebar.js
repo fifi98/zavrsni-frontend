@@ -6,7 +6,8 @@ import {
   faChartLine,
   faChair,
   faFileInvoice,
-  faTag
+  faTag,
+  faBars
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
@@ -43,11 +44,20 @@ const Sidebar = props => {
         </li>
         <li className="nav-item">
           <Link
+            to="/restaurant/menu/categories"
+            className={props.location.pathname === "/restaurant/menu/categories" ? "nav-link active" : "nav-link"}
+          >
+            <FontAwesomeIcon className="mr-2" fixedWidth icon={faBars} />
+            Menu categories
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
             to="/restaurant/menufood"
             className={props.location.pathname === "/restaurant/menufood" ? "nav-link active" : "nav-link"}
           >
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faUtensils} />
-            Menu and Food
+            Menu items
           </Link>
         </li>
         <li className="nav-item">

@@ -4,6 +4,7 @@ import Orders from "../../screens/restaurant/Orders";
 import Reservations from "../../screens/restaurant/Reservations";
 import Tables from "../../screens/restaurant/Tables";
 import MenuFood from "../../screens/restaurant/MenuFood";
+import MenuCategories from "../../screens/restaurant/MenuCategories";
 import Discounts from "../../screens/restaurant/Discounts";
 import Stats from "../../screens/restaurant/Stats";
 import Navbar from "../Navbar";
@@ -25,6 +26,7 @@ const RestaurantRoutes = props => {
           <Route path="/restaurant/reservations" component={Reservations} exact />
           <Route path="/restaurant/tables" component={Tables} exact />
           <Route path="/restaurant/menufood" component={MenuFood} exact />
+          <Route path="/restaurant/menu/categories" component={MenuCategories} exact />
           <Route path="/restaurant/discounts" component={Discounts} exact />
           <Route path="/restaurant/stats" component={Stats} exact />
         </div>

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash, faChair, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash, faUtensils, faChair, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Tables = () => {
-  const [tables, setTables] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [add, setAdd] = useState(false);
 
   useEffect(() => {
-    API.get("/restaurant/4/tables").then(result => {
-      setTables(result.data.data);
+    API.get("/restaurant/4/menu/categories").then(result => {
+      setCategories(result.data.data);
+      console.log(categories);
     });
   }, []);
 
@@ -23,7 +24,7 @@ const Tables = () => {
         <div className="clearfix border-bottom border-gray">
           <div class="float-left mt-2">
             <h6 className="mb-0 ">
-              <FontAwesomeIcon className="mr-2" fixedWidth icon={faChair} /> Menu and Food
+              <FontAwesomeIcon className="mr-2" fixedWidth icon={faUtensils} /> Menu items
             </h6>
           </div>
           <div class="float-right mb-3">
@@ -69,24 +70,35 @@ const Tables = () => {
           ) : (
             ""
           )}
-          <div class="card mb-3 mt-2">
-            <div class="row no-gutters">
-              <div class="col-4 col-md-2">
+          <div class="btn-group btn-group-toggle mb-3" style={{ width: "100%" }} data-toggle="buttons">
+            {categories.map(category => (
+              <label class="btn btn-outline-secondary">
+                <input type="radio" name="options" id="option1" checked />
+                {category.category}
+              </label>
+            ))}
+          </div>
+          <div className="form-group">
+            <input type="text" className="form-control" placeholder="Type to search" />
+          </div>
+          <div className="card mb-3 mt-2">
+            <div className="row no-gutters">
+              <div className="col-4 col-md-2">
                 <img
                   src="https://image.dnevnik.hr/media/images/1600xX/Jan2018/61454893.jpg"
-                  class="card-img"
+                  className="card-img"
                   alt="..."
                   style={{ height: "100%" }}
                 />
               </div>
-              <div class="col-8 col-md-10">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
+              <div className="col-8 col-md-10">
+                <div className="card-body">
+                  <h5 className="card-title">Card title</h5>
 
-                  <p class="card-text">
-                    <small class="text-muted">Lorem ipsum</small>
+                  <p className="card-text">
+                    <small className="text-muted">Lorem ipsum</small>
                   </p>
-                  <p class="card-text">40kn</p>
+                  <p className="card-text">40kn</p>
                 </div>
               </div>
             </div>
