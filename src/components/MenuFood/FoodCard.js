@@ -1,6 +1,6 @@
 import React from "react";
 
-const FoodCard = props => {
+const FoodCard = ({ item }) => {
   return (
     <div className="card mb-3 mt-2">
       <div className="row no-gutters">
@@ -14,12 +14,12 @@ const FoodCard = props => {
         </div>
         <div className="col-8 col-md-10">
           <div className="card-body">
-            <h5 className="card-title">Card title</h5>
+            <h5 className="card-title">{item.name}</h5>
 
             <p className="card-text">
-              <small className="text-muted">Lorem ipsum</small>
+              <small className="text-muted">{item.description}</small>
             </p>
-            <p className="card-text">40kn</p>
+            <p className="card-text">{item.price}kn</p>
           </div>
         </div>
       </div>

@@ -23,8 +23,7 @@ const Login = () => {
   const submitHandler = event => {
     event.preventDefault();
 
-    if (input.email.length === 0 || input.password.length === 0)
-      setError({ ...error, error: true });
+    if (input.email.length === 0 || input.password.length === 0) setError({ ...error, error: true });
 
     API.post("/user/register", input)
       .then(res => console.log(res))
@@ -45,12 +44,7 @@ const Login = () => {
 
         <div className="form-label-group d-flex">
           <div className="btn-group btn-group-toggle w-100">
-            <label
-              className={
-                "btn btn-outline-dark " +
-                (input.userType === "customer" ? "active" : "")
-              }
-            >
+            <label className={"btn btn-outline-dark " + (input.userType === "customer" ? "active" : "")}>
               <FontAwesomeIcon icon={faUser} />
               <input
                 type="radio"
@@ -61,12 +55,7 @@ const Login = () => {
               />{" "}
               Customer
             </label>
-            <label
-              className={
-                "btn btn-outline-dark " +
-                (input.userType === "restaurant" ? "active" : "")
-              }
-            >
+            <label className={"btn btn-outline-dark " + (input.userType === "restaurant" ? "active" : "")}>
               <FontAwesomeIcon icon={faUtensils} />
               <input
                 type="radio"
@@ -141,11 +130,7 @@ const Login = () => {
         <div className="checkbox mb-3">
           <Link to="/login">Already have an account?</Link>
         </div>
-        <button
-          className="btn btn-lg btn-primary btn-block"
-          type="submit"
-          onClick={submitHandler}
-        >
+        <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={submitHandler}>
           Sign up
         </button>
       </form>
