@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AddForm = props => {
+  const [input, setInput] = useState({ title: "", description: "", price: "", categoryId: "" });
+
   return (
     <div class="alert alert-light border-bottom border-gray mb-4 pb-4" role="alert">
       <form>

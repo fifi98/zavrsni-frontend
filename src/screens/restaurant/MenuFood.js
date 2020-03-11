@@ -70,7 +70,8 @@ const Tables = () => {
           />
         </div>
         {menuItems.map(
-          item => item.name.toLowerCase().includes(searchKeyword.toLowerCase()) && <FoodCard item={item} />
+          item =>
+            item.name.toLowerCase().includes(searchKeyword.toLowerCase()) && <FoodCard item={item} key={item.item_id} />
         )}
       </div>
     </MainContainer>

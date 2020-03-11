@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
-import { faEdit, faTrash, faChair, faPlus, faQrcode } from "@fortawesome/free-solid-svg-icons";
+import { faChair } from "@fortawesome/free-solid-svg-icons";
 import MainContainer from "../../components/MainContainer";
 import AddForm from "../../components/Tables/AddForm";
 import TableRow from "../../components/Tables/TableRow";
