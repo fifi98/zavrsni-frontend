@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash, faQrcode } from "@fortawesome/free-solid-svg-icons";
 
-const TableRow = ({ table, handleEdit, handleDelete }) => {
+const TableRow = ({ table, handleEdit, handleDelete, handleShare }) => {
   return (
     <tr className="border-bottom border-gray">
       <td>{table.label}</td>
@@ -10,7 +10,13 @@ const TableRow = ({ table, handleEdit, handleDelete }) => {
         <span className="badge badge-success">Empty</span>
       </td>
       <td className="text-right">
-        <FontAwesomeIcon className="mr-2" fixedWidth icon={faQrcode} />
+        <FontAwesomeIcon
+          style={{ cursor: "pointer" }}
+          onClick={() => handleShare(table)}
+          className="mr-2"
+          fixedWidth
+          icon={faQrcode}
+        />
         <FontAwesomeIcon
           style={{ cursor: "pointer" }}
           onClick={() => handleEdit(table.table_id)}

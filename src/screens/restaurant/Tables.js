@@ -5,6 +5,8 @@ import MainContainer from "../../components/MainContainer";
 import AddForm from "../../components/Tables/AddForm";
 import TableRow from "../../components/Tables/TableRow";
 import EditForm from "../../components/Tables/EditForm";
+import { Button, Modal } from "react-bootstrap";
+import { QRCode } from "react-qr-svg";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
@@ -12,6 +14,14 @@ const Tables = () => {
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState({ label: "" });
+
+  const [show, setShow] = useState(false);
+  const [selectedTable, setSelectedTable] = useState({});
+
+  const handleShare = table => {
+    setSelectedTable(table);
+    setShow(true);
+  };
 
   useEffect(() => {
     API.get("/restaurant/4/tables").then(result => {
@@ -75,6 +85,30 @@ const Tables = () => {
 
   return (
     <MainContainer icon={faChair} handleAdd={handleAdd} title="Tables">
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedTable.label}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          <QRCode
+            bgColor="#FFFFFF"
+            fgColor="#000000"
+            level="Q"
+            style={{ width: 256 }}
+            value="http://localhost/order/iagawAawf"
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={() => setShow(false)}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {add && <AddForm handleSubmit={handleSubmit} handleChange={handleChange} input={input} />}
       {edit && (
         <EditForm
@@ -91,7 +125,13 @@ const Tables = () => {
         <table className="table table-hover table-borderless">
           <tbody>
             {tables.map(table => (
-              <TableRow key={table.table_id} table={table} handleEdit={handleEdit} handleDelete={handleDelete} />
+              <TableRow
+                key={table.table_id}
+                table={table}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                handleShare={handleShare}
+              />
             ))}
           </tbody>
         </table>
