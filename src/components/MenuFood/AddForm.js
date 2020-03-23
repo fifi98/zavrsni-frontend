@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import API from "../../util/api";
+import React from "react";
 
 const AddForm = ({ categories, input, handleSubmit, handleChange }) => {
   return (
@@ -20,7 +19,12 @@ const AddForm = ({ categories, input, handleSubmit, handleChange }) => {
             </div>
             <div class="form-group">
               <label htmlFor="exampleInputPassword1">Description</label>
-              <textarea className="form-control" name="description" value={input.description} onChange={handleChange} />
+              <textarea
+                className="form-control"
+                name="description"
+                value={input.description}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="col-6">

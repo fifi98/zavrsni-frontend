@@ -96,8 +96,9 @@ const Tables = () => {
             fgColor="#000000"
             level="Q"
             style={{ width: 256 }}
-            value="http://localhost/order/iagawAawf"
+            value={"http://localhost:3000/order/" + selectedTable.sharing_id}
           />
+          {"http://localhost:3000/order/" + selectedTable.sharing_id}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>

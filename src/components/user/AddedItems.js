@@ -1,0 +1,24 @@
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faListAlt } from "@fortawesome/free-solid-svg-icons";
+
+const AddedItems = ({ icon, title, handleAdd, children }) => {
+  return (
+    <div className="my-3 p-3 bg-white rounded shadow-sm">
+      <div className="clearfix border-bottom border-gray mb-2">
+        <div className="float-left mt-2 mb-3">
+          <h6 className="mb-0 ">
+            <FontAwesomeIcon className="mr-2" fixedWidth icon={faListAlt} /> Added items
+          </h6>
+        </div>
+      </div>
+      {children}a
+      <div className="clearfix pt-2 mt-2">
+        <button className="btn btn-primary w-100">Click to order (120$)</button>
+      </div>
+    </div>
+  );
+};
+
+export default AddedItems;

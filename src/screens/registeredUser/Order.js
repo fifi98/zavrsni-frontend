@@ -2,36 +2,20 @@ import React, { useEffect, useState } from "react";
 import API from "../../util/api";
 import MainContainer from "../../components/MainContainer";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
-import AddForm from "../../components/MenuFood/AddForm";
 import FoodCard from "../../components/MenuFood/FoodCard";
 
-const Tables = () => {
+const Orders = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
   const [menuItems, setMenuItems] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [add, setAdd] = useState(false);
 
-  const [input, setInput] = useState({ name: "", description: "", price: "", categoryId: 0 });
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    API.post("/restaurant/4/menu/categories/" + input.categoryId + "/items", input).then(response => {
-      if (selectedCategory === parseInt(input.categoryId)) setMenuItems(response.data.data);
-      setAdd(false);
-      setInput({ name: "", description: "", price: "", categoryId: 0 });
-    });
-  };
-
-  const handleChange = event => {
-    setInput({ ...input, [event.target.name]: event.target.value });
-  };
+  const [addedItems, setAddedItems] = useState([]);
 
   useEffect(() => {
     API.get("/restaurant/4/menu/categories").then(result => {
       setCategories(result.data.data);
       //Select the first category by default
-      setInput(i => i, { categoryId: result.data.data[0].category_id });
       setSelectedCategory(result.data.data[0].category_id);
     });
   }, []);
@@ -43,10 +27,6 @@ const Tables = () => {
     });
   }, [selectedCategory]);
 
-  const handleAdd = () => {
-    setAdd(!add);
-  };
-
   const handleSearchChange = event => {
     setSearchKeyword(event.target.value);
   };
@@ -56,11 +36,8 @@ const Tables = () => {
   };
 
   return (
-    <MainContainer icon={faUtensils} handleAdd={handleAdd} title="Menu items">
+    <MainContainer icon={faUtensils} title="New order">
       <div className="mt-2 pt-2">
-        {add && (
-          <AddForm categories={categories} input={input} handleSubmit={handleSubmit} handleChange={handleChange} />
-        )}
         <div className="btn-group btn-group-toggle mb-3 w-100">
           {categories.map(category => (
             <label
@@ -98,4 +75,4 @@ const Tables = () => {
   );
 };
 
-export default Tables;
+export default Orders;
