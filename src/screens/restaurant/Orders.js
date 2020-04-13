@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../components/restaurant/Table";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import MainContainer from "../../components/MainContainer";
+import io from "socket.io-client";
 
-const Restaurant = props => {
+const Restaurant = (props) => {
+  let socket = io("http://localhost:8080/restaurant");
+
+  const [tables, setTables] = useState([]);
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+
+    //When connected, table data is sent from server
+    socket.on("tableData", (msg) => {
+      console.log(msg);
+      setTables(msg);
+    });
+  }, []);
+
   return (
     <div>
       <MainContainer icon={faTag} title="Orders">
         <div className="row mt-4 p-2">
-          <Table type="Empty" id="1" />
-          <Table type="Reserved" id="2" />
-          <Table type="Occupied" id="3" />
-          <Table type="Empty" id="4" />
-          <Table type="Empty" id="5" />
-          <Table type="Empty" id="6" />
-          <Table type="Empty" id="7" />
-          <Table type="Empty" id="8" />
+          {tables.map((table) => (
+            <Table key={table.table_id} type="Empty" id={table.label} />
+          ))}
         </div>
       </MainContainer>
 
@@ -49,8 +61,8 @@ const Restaurant = props => {
           </svg>
           <p className="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
             <strong className="d-block text-gray-dark">@username</strong>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus.
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+            fermentum massa justo sit amet risus.
           </p>
         </div>
 
@@ -73,8 +85,8 @@ const Restaurant = props => {
           </svg>
           <p className="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
             <strong className="d-block text-gray-dark">@username</strong>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus.
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+            fermentum massa justo sit amet risus.
           </p>
         </div>
 
@@ -97,8 +109,8 @@ const Restaurant = props => {
           </svg>
           <p className="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
             <strong className="d-block text-gray-dark">@username</strong>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus.
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+            fermentum massa justo sit amet risus.
           </p>
         </div>
       </div>

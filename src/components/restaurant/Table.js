@@ -1,6 +1,6 @@
 import React from "react";
 
-const Table = props => {
+const Table = (props) => {
   const handleClick = () => {
     alert("a");
   };
@@ -16,7 +16,7 @@ const Table = props => {
         <div className="row no-gutters">
           <div className="col-11">
             <div className="card-body">
-              <h6 className="card-title">T{props.id}</h6>
+              <h6 className="card-title">{props.id}</h6>
               <p className="card-text"></p>
               <p className="card-text">
                 <small className="text-muted">{props.type}</small>
