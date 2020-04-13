@@ -5,11 +5,14 @@ import MainContainer from "../../components/MainContainer";
 import io from "socket.io-client";
 
 const Restaurant = (props) => {
-  let socket = io("http://localhost:8080/restaurant");
+  let socket = io("http://localhost:8080/restaurant", {
+    autoConnect: false,
+  });
 
   const [tables, setTables] = useState([]);
-
+  const [orders, setOrders] = useState([]);
   useEffect(() => {
+    socket.connect();
     socket.on("connect", () => {
       console.log("Connected");
     });
@@ -19,6 +22,9 @@ const Restaurant = (props) => {
       console.log(msg);
       setTables(msg);
     });
+
+    //When new order has been received
+    socket.on("order", (msg) => setOrders(msg));
   }, []);
 
   return (
@@ -33,7 +39,18 @@ const Restaurant = (props) => {
 
       <div className="row">
         <div className="col-6">
-          <MainContainer title="New orders"></MainContainer>
+          <MainContainer title="New orders">
+            {orders.map((order) => (
+              <div class="card mt-3">
+                <div class="card-body">
+                  This is some text within a card body.
+                  <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </MainContainer>
         </div>
         <div className="col-6">
           <MainContainer title="Served"></MainContainer>
