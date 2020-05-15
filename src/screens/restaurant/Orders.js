@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
-import RestaurantTable from "../../components/restaurant/Table";
+import { Row, Col } from "react-bootstrap";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
+import RestaurantTable from "../../components/restaurant/Table";
 import MainContainer from "../../components/MainContainer";
-import io from "socket.io-client";
-import { Table, Modal, Button, Row, Col } from "react-bootstrap";
-import api from "../../util/api";
-import Order from "../../components/restaurant/Order";
-import NewOrders from "../../components/restaurant/NewOrders";
 import ServedOrders from "../../components/restaurant/ServedOrders";
 import OrderDetails from "../../components/restaurant/OrderDetails";
+import NewOrders from "../../components/restaurant/NewOrders";
+import api from "../../util/api";
+import io from "socket.io-client";
 
-const Restaurant = (props) => {
-  let socket = io("http://localhost:8080/", {
-    autoConnect: false,
-  });
-
+const Restaurant = () => {
   const [showOrderDetails, setShowOrderDetails] = useState(false);
   const [tables, setTables] = useState([]);
   const [orders, setOrders] = useState([]);
   const [served, setServed] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState({ items: [] });
+  const [socket] = useState(io("http://localhost:8080/"));
 
   // When the page loads
   useEffect(() => {
@@ -33,12 +29,25 @@ const Restaurant = (props) => {
   }, []);
 
   // When clicked on an order
-  const handleOrderPreparation = (order_id) => {
+  const handleOrderDetails = (order_id) => {
     // Get selected order's details
     api.get(`/restaurant/4/orders/${order_id}`).then((response) => {
       setSelectedOrder(response.data.data);
       setShowOrderDetails(true);
     });
+  };
+
+  // When an order is marked as served
+  const handleServeOrder = (order_id) => {
+    // Send order served message to the server
+    socket.emit("orderServed", { order_id: order_id });
+
+    // Remove the order from New Orders
+    const order = orders.find((o) => o.order_id == order_id);
+    setOrders((old) => old.filter((o) => o.order_id !== order.order_id));
+    setServed((old) => [...old, order]);
+
+    setShowOrderDetails(false);
   };
 
   return (
@@ -53,14 +62,19 @@ const Restaurant = (props) => {
 
       <Row>
         <Col>
-          <NewOrders orders={orders} handleOrderPreparation={handleOrderPreparation} />
+          <NewOrders orders={orders} handleOrderPreparation={handleOrderDetails} />
         </Col>
         <Col>
           <ServedOrders served={served} />
         </Col>
       </Row>
 
-      <OrderDetails order={selectedOrder} shown={showOrderDetails} onHide={() => setShowOrderDetails(false)} />
+      <OrderDetails
+        order={selectedOrder}
+        shown={showOrderDetails}
+        onHide={() => setShowOrderDetails(false)}
+        handleServeOrder={handleServeOrder}
+      />
     </div>
   );
 };

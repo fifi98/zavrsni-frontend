@@ -10,6 +10,9 @@ const ServedOrders = ({ served }) => {
           <small>Orders that you mark as served will be shown here</small>
         </div>
       )}
+      {served.map((order) => (
+        <Order key={order.order_id} order={order} />
+      ))}
     </MainContainer>
   );
 };

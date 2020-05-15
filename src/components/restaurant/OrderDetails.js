@@ -1,7 +1,7 @@
 import React from "react";
-import { Table, Modal, Button, Row, Col } from "react-bootstrap";
+import { Table, Modal, Button } from "react-bootstrap";
 
-const OrderDetails = ({ order, shown, onHide }) => {
+const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
   return (
     <Modal show={shown} onHide={onHide}>
       <Modal.Header closeButton>
@@ -18,7 +18,7 @@ const OrderDetails = ({ order, shown, onHide }) => {
             </tr>
           </thead>
           <tbody>
-            {order.map((item) => (
+            {order.items.map((item) => (
               <tr key={item.item_id}>
                 <td>{item.quantity}</td>
                 <td>{item.name}</td>
@@ -38,7 +38,9 @@ const OrderDetails = ({ order, shown, onHide }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary">Close</Button>
-        <Button variant="primary">Served</Button>
+        <Button variant="primary" onClick={() => handleServeOrder(order.order_id)}>
+          Served
+        </Button>
       </Modal.Footer>
     </Modal>
   );
