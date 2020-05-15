@@ -5,8 +5,6 @@ const Table = ({ table }) => {
     alert("a");
   };
 
-  console.log(table);
-
   let color;
   if (table.status === "Empty") color = "bg-success";
   if (table.status === "Occupied") color = "bg-danger";

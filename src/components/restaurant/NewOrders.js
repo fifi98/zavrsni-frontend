@@ -13,7 +13,7 @@ const NewOrders = ({ orders, handleOrderPreparation }) => {
         )}
 
         {orders.map((order) => (
-          <Order order={order} onClick={handleOrderPreparation} />
+          <Order key={order.order_id} order={order} onClick={handleOrderPreparation} />
         ))}
       </div>
     </MainContainer>

@@ -8,6 +8,7 @@ import api from "../../util/api";
 import Order from "../../components/restaurant/Order";
 import NewOrders from "../../components/restaurant/NewOrders";
 import ServedOrders from "../../components/restaurant/ServedOrders";
+import OrderDetails from "../../components/restaurant/OrderDetails";
 
 const Restaurant = (props) => {
   let socket = io("http://localhost:8080/", {
@@ -59,44 +60,7 @@ const Restaurant = (props) => {
         </Col>
       </Row>
 
-      <Modal show={showOrderDetails} onHide={() => setShowOrderDetails(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Order details for table T1</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>Q</th>
-                <th>Item</th>
-                <th>Price</th>
-                <th className="text-right">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selectedOrder.map((item) => (
-                <tr>
-                  <td>{item.quantity}</td>
-                  <td>{item.name}</td>
-                  <td>{item.price} kn</td>
-                  <td className="text-right">{item.price * item.quantity} kn</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="4" className="text-right">
-                  234 kn
-                </td>
-              </tr>
-            </tfoot>
-          </Table>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Served</Button>
-        </Modal.Footer>
-      </Modal>
+      <OrderDetails order={selectedOrder} shown={showOrderDetails} onHide={() => setShowOrderDetails(false)} />
     </div>
   );
 };
