@@ -17,10 +17,31 @@ const Orders = (props) => {
 
   const [addedItems, setAddedItems] = useState([]);
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const [socket] = useState(io("http://localhost:8080/customer", { autoConnect: false }));
+  const [socket] = useState(io("http://localhost:8080/", { autoConnect: false }));
 
   //Sharing ID stola
   const { tableID } = useParams();
+
+  // Sending the order to the server
+  const handleOrder = (event) => {
+    // Prepare the message we are going to send to the server
+    const orderMessage = {
+      table_id: tableID,
+      items: [],
+    };
+
+    // Add selected items to the message
+    orderMessage.items = addedItems.map((item) => ({
+      item_id: item.item_id,
+      quantity: item.quantity,
+    }));
+
+    console.log(orderMessage);
+
+    socket.emit("order", orderMessage);
+
+    setOrderPlaced(true);
+  };
 
   useEffect(() => {
     //Provjeri postoji li taj stol - ako da
@@ -55,13 +76,16 @@ const Orders = (props) => {
     setSelectedCategory(parseInt(event.target.value));
   };
 
-  const handleOrder = (event) => {
-    socket.emit("order", addedItems);
-    setOrderPlaced(true);
-  };
-
+  // Adding or removing an item from the order
   const handleAddItem = (item) => {
-    setAddedItems((old) => [...old, item]);
+    if (addedItems.find((i) => i.item_id === item.item_id)) {
+      // Remove the item
+      setAddedItems((old) => old.filter((i) => i.item_id !== item.item_id));
+    } else {
+      // Add the tem
+      setAddedItems((old) => [...old, { ...item, quantity: 1 }]);
+    }
+
     console.log(addedItems);
   };
 
@@ -111,7 +135,12 @@ const Orders = (props) => {
               {menuItems.map(
                 (item) =>
                   item.name.toLowerCase().includes(searchKeyword.toLowerCase()) && (
-                    <FoodCard item={item} key={item.item_id} onClick={handleAddItem} />
+                    <FoodCard
+                      item={item}
+                      key={item.item_id}
+                      onClick={handleAddItem}
+                      selected={addedItems.find((i) => i.item_id === item.item_id)}
+                    />
                   )
               )}
             </div>

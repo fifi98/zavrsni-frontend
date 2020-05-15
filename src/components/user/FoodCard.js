@@ -1,8 +1,8 @@
 import React from "react";
 
-const FoodCard = ({ item, onClick }) => {
+const FoodCard = ({ item, onClick, selected }) => {
   return (
-    <div className="card mb-3 mt-2 " onClick={() => onClick(item)}>
+    <div className={`card mb-3 ${selected && "border-primary"} mt-2`} onClick={() => onClick(item)}>
       <div className="row no-gutters">
         <div className="col-8 col-md-11">
           <div className="card-body">
@@ -13,6 +13,9 @@ const FoodCard = ({ item, onClick }) => {
             <p className="card-text">{item.price}kn</p>
           </div>
         </div>
+        {/* <div className="col-1">
+          <input name="quantity" className="form-control" value="1" />
+        </div> */}
       </div>
     </div>
   );

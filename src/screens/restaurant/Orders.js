@@ -3,29 +3,40 @@ import Table from "../../components/restaurant/Table";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import MainContainer from "../../components/MainContainer";
 import io from "socket.io-client";
+import TimeAgo from "react-timeago";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faCheckCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
 const Restaurant = (props) => {
-  let socket = io("http://localhost:8080/restaurant", {
+  let socket = io("http://localhost:8080/", {
     autoConnect: false,
   });
 
   const [tables, setTables] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [served, setServed] = useState([]);
   useEffect(() => {
     socket.connect();
     socket.on("connect", () => {
       console.log("Connected");
     });
 
-    //When connected, table data is sent from server
+    // After connecting, table data is received from server
     socket.on("tableData", (msg) => {
-      console.log(msg);
       setTables(msg);
     });
 
-    //When new order has been received
-    socket.on("order", (msg) => setOrders(msg));
+    // When a new order has been received
+    socket.on("order", (msg) => {
+      console.log(msg);
+      setOrders((old) => [...old, msg]);
+    });
   }, []);
+
+  const handleOrderPreparation = () => {
+    alert("Preparation");
+  };
 
   return (
     <div>
@@ -40,95 +51,60 @@ const Restaurant = (props) => {
       <div className="row">
         <div className="col-6">
           <MainContainer title="New orders">
-            {orders.map((order) => (
-              <div class="card mt-3">
-                <div class="card-body">
-                  This is some text within a card body.
-                  <p class="card-text">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                  </p>
+            <div style={{ maxHeight: 310, overflowY: "scroll" }}>
+              {orders.length === 0 && (
+                <div className="mt-2">
+                  <small>New orders will show up here</small>
                 </div>
-              </div>
-            ))}
+              )}
+
+              {orders.map((order) => (
+                <div class="card mt-3" onClick={handleOrderPreparation}>
+                  <div class="card-body">
+                    <div className="row">
+                      <div className="col-10">
+                        <h6 className="card-title m-0">
+                          <a href="#">{order.table_name}</a>
+                        </h6>
+
+                        <p className="card-text">
+                          <small className="text-muted">
+                            <TimeAgo
+                              date={Date.now()}
+                              formatter={(value, unit) => {
+                                if (unit === "second" && value < 15) return "just now";
+                                if (unit === "second") return "few seconds ago";
+                                if (unit === "minute") return `${value} ${value === 1 ? "minute" : "minutes"} ago`;
+                              }}
+                            />
+                          </small>
+                        </p>
+                      </div>
+                      <div className="col-2 my-auto text-center">
+                        <FontAwesomeIcon style={{ cursor: "pointer" }} className="mr-2" size="lg" icon={faCheckCircle} />
+                      </div>
+                    </div>
+
+                    {/* {order.items.map((item) => (
+                    <small>
+                      {item.name}
+                      <br />
+                    </small>
+                  ))} */}
+                  </div>
+                </div>
+              ))}
+            </div>
           </MainContainer>
         </div>
         <div className="col-6">
-          <MainContainer title="Served"></MainContainer>
-        </div>
-      </div>
-
-      <div className="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 className="border-bottom border-gray pb-2 mb-0">Served</h6>
-        <div className="media text-muted pt-3">
-          <svg
-            className="bd-placeholder-img mr-2 rounded"
-            width="32"
-            height="32"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-            role="img"
-            aria-label="Placeholder: 32x32"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#007bff"></rect>
-            <text x="50%" y="50%" fill="#007bff" dy=".3em">
-              32x32
-            </text>
-          </svg>
-          <p className="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-            <strong className="d-block text-gray-dark">@username</strong>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-            fermentum massa justo sit amet risus.
-          </p>
-        </div>
-
-        <div className="media text-muted pt-3">
-          <svg
-            className="bd-placeholder-img mr-2 rounded"
-            width="32"
-            height="32"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-            role="img"
-            aria-label="Placeholder: 32x32"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#007bff"></rect>
-            <text x="50%" y="50%" fill="#007bff" dy=".3em">
-              32x32
-            </text>
-          </svg>
-          <p className="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-            <strong className="d-block text-gray-dark">@username</strong>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-            fermentum massa justo sit amet risus.
-          </p>
-        </div>
-
-        <div className="media text-muted pt-3">
-          <svg
-            className="bd-placeholder-img mr-2 rounded"
-            width="32"
-            height="32"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-            role="img"
-            aria-label="Placeholder: 32x32"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#007bff"></rect>
-            <text x="50%" y="50%" fill="#007bff" dy=".3em">
-              32x32
-            </text>
-          </svg>
-          <p className="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-            <strong className="d-block text-gray-dark">@username</strong>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-            fermentum massa justo sit amet risus.
-          </p>
+          <MainContainer title="Served">
+            {served.length === 0 && (
+              <div className="mt-2">
+                <small>Orders that you mark as served will be shown here</small>
+              </div>
+            )}
+          </MainContainer>
         </div>
       </div>
     </div>
