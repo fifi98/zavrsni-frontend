@@ -43,7 +43,7 @@ const Restaurant = (props) => {
       <MainContainer icon={faTag} title="Orders">
         <div className="row mt-4 p-2">
           {tables.map((table) => (
-            <Table key={table.table_id} type="Empty" id={table.label} />
+            <Table key={table.table_id} type={table.status} id={table.label} />
           ))}
         </div>
       </MainContainer>
