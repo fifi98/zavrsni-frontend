@@ -1,14 +1,16 @@
 import React from "react";
 
-const Table = (props) => {
+const Table = ({ table }) => {
   const handleClick = () => {
     alert("a");
   };
 
+  console.log(table);
+
   let color;
-  if (props.type === "Empty") color = "bg-success";
-  if (props.type === "Occupied") color = "bg-danger";
-  if (props.type === "Reserved") color = "bg-warning";
+  if (table.status === "Empty") color = "bg-success";
+  if (table.status === "Occupied") color = "bg-danger";
+  if (table.status === "Reserved") color = "bg-warning";
 
   return (
     <a href="!#" className="restaurantTableLink col-6 col-xl-2 col-lg-3 col-md-4 col-sm-4 mb-4" onClick={handleClick}>
@@ -16,10 +18,10 @@ const Table = (props) => {
         <div className="row no-gutters">
           <div className="col-11">
             <div className="card-body">
-              <h6 className="card-title">{props.id}</h6>
+              <h6 className="card-title">{table.label}</h6>
               <p className="card-text"></p>
               <p className="card-text">
-                <small className="text-muted">{props.type}</small>
+                <small className="text-muted">{table.status}</small>
               </p>
             </div>
           </div>

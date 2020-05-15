@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import AddedItems from "../../components/user/AddedItems";
 import io from "socket.io-client";
-import { Alert } from "react-bootstrap";
+import { Alert, Modal, Button } from "react-bootstrap";
 
 const Orders = (props) => {
   const [categories, setCategories] = useState([]);
@@ -46,11 +46,6 @@ const Orders = (props) => {
   useEffect(() => {
     //Provjeri postoji li taj stol - ako da
     socket.connect();
-    console.log(socket);
-
-    console.log(tableID);
-
-    //
 
     socket.on("message", (msg) => console.log(msg));
 
@@ -85,8 +80,6 @@ const Orders = (props) => {
       // Add the tem
       setAddedItems((old) => [...old, { ...item, quantity: 1 }]);
     }
-
-    console.log(addedItems);
   };
 
   return (

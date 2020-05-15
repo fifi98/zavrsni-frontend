@@ -8,7 +8,7 @@ const MainContainer = ({ icon, title, handleAdd, children }) => {
       <div className="clearfix border-bottom border-gray">
         <div className="float-left mt-2 mb-3">
           <h6 className="mb-0 ">
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={icon} /> {title}
+            {icon && <FontAwesomeIcon className="mr-2" fixedWidth icon={icon} />} {title}
           </h6>
         </div>
         {handleAdd && (
