@@ -12,9 +12,12 @@ const NewOrders = ({ orders, handleOrderPreparation }) => {
           </div>
         )}
 
-        {orders.map((order) => (
-          <Order key={order.order_id} order={order} onClick={handleOrderPreparation} />
-        ))}
+        {orders
+          .slice(0)
+          .reverse()
+          .map((order) => (
+            <Order key={order.order_id} order={order} onClick={handleOrderPreparation} />
+          ))}
       </div>
     </MainContainer>
   );

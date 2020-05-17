@@ -3,13 +3,13 @@ import { Table, Modal, Button } from "react-bootstrap";
 
 const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
   return (
-    <Modal show={shown} onHide={onHide}>
-      <Modal.Header closeButton>
+    <Modal size="lg" show={shown} onHide={onHide}>
+      {/* <Modal.Header closeButton>
         <Modal.Title>Order details for table T1</Modal.Title>
-      </Modal.Header>
+      </Modal.Header> */}
       <Modal.Body>
         <Table responsive>
-          <thead>
+          <thead style={{ borderTop: "hidden" }}>
             <tr>
               <th>Q</th>
               <th>Item</th>

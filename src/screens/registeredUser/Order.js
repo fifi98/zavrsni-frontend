@@ -10,6 +10,12 @@ import io from "socket.io-client";
 import { Alert, Modal, Button } from "react-bootstrap";
 
 const Orders = (props) => {
+  const ORDER = {
+    NEW: 0,
+    PLACED: 1,
+    SERVED: 2,
+  };
+
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
   const [menuItems, setMenuItems] = useState([]);
@@ -19,6 +25,9 @@ const Orders = (props) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [socket] = useState(io("http://localhost:8080/", { autoConnect: false }));
 
+  const [orderStatus, setOrderStatus] = useState(ORDER.NEW);
+  const [orderID, setOrderID] = useState(0);
+
   //Sharing ID stola
   const { tableID } = useParams();
 
@@ -26,7 +35,6 @@ const Orders = (props) => {
   const handleOrder = (event) => {
     // Prepare the message we are going to send to the server
     const orderMessage = {
-      table_id: tableID,
       items: [],
     };
 
@@ -36,9 +44,24 @@ const Orders = (props) => {
       quantity: item.quantity,
     }));
 
-    console.log(orderMessage);
+    // If it's a new order, create it and change status
+    if (orderStatus === ORDER.NEW) {
+      // Send the table sharing ID when creating new order
+      orderMessage.table_id = tableID;
+      // Send to the server
+      socket.emit("order", orderMessage);
+      setOrderStatus(ORDER.PLACED);
+      alert("sent new order");
+    }
 
-    socket.emit("order", orderMessage);
+    //
+    if (orderStatus === ORDER.SERVED) {
+      // Send the order ID we are updating
+      orderMessage.order_id = orderID;
+      // Send to the server
+      socket.emit("orderUpdate", orderMessage);
+      alert("order update");
+    }
 
     setOrderPlaced(true);
   };
@@ -46,6 +69,13 @@ const Orders = (props) => {
   useEffect(() => {
     //Provjeri postoji li taj stol - ako da
     socket.connect();
+
+    // When the order has been served
+    socket.on("orderServed", (order) => {
+      setOrderStatus(ORDER.SERVED);
+      setOrderID(order.order_id);
+      alert("served!");
+    });
 
     socket.on("message", (msg) => console.log(msg));
 
