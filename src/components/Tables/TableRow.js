@@ -7,16 +7,10 @@ const TableRow = ({ table, handleEdit, handleDelete, handleShare }) => {
     <tr className="border-bottom border-gray">
       <td>{table.label}</td>
       <td className="text-center">
-        <span className="badge badge-success">Empty</span>
+        <span className={`badge ${table.status === "Empty" ? "badge-success" : "badge-danger"}`}>{table.status}</span>
       </td>
       <td className="text-right">
-        <FontAwesomeIcon
-          style={{ cursor: "pointer" }}
-          onClick={() => handleShare(table)}
-          className="mr-2"
-          fixedWidth
-          icon={faQrcode}
-        />
+        <FontAwesomeIcon style={{ cursor: "pointer" }} onClick={() => handleShare(table)} className="mr-2" fixedWidth icon={faQrcode} />
         <FontAwesomeIcon
           style={{ cursor: "pointer" }}
           onClick={() => handleEdit(table.table_id)}
