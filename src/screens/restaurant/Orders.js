@@ -26,6 +26,15 @@ const Restaurant = () => {
 
     // Show the new order when it's received
     socket.on("order", (msg) => setOrders((old) => [...old, msg]));
+
+    // On order update
+    socket.on("orderUpdate", (msg) => {
+      setOrders((old) => [...old, msg]);
+      setServed((old) => old.filter((order) => order.order_id != msg.order_id));
+      console.log(msg);
+    });
+
+    return () => socket.disconnect();
   }, []);
 
   // When clicked on an order
