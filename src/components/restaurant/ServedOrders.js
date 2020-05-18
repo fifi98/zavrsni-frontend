@@ -2,7 +2,7 @@ import React from "react";
 import MainContainer from "../MainContainer";
 import Order from "./Order";
 
-const ServedOrders = ({ served }) => {
+const ServedOrders = ({ served, handleOrderPreparation }) => {
   return (
     <MainContainer title="Served">
       {served.length === 0 && (
@@ -14,7 +14,7 @@ const ServedOrders = ({ served }) => {
         .slice(0)
         .reverse()
         .map((order) => (
-          <Order key={order.order_id} order={order} />
+          <Order key={order.order_id} order={order} onClick={handleOrderPreparation} />
         ))}
     </MainContainer>
   );

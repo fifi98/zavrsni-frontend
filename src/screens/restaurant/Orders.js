@@ -34,6 +34,16 @@ const Restaurant = () => {
       console.log(msg);
     });
 
+    // On receipt request
+    socket.on("requestReceipt", (msg) => {
+      setServed((old) =>
+        old.map((order) => {
+          if ((order.order_id = msg.order_id)) order.requestedReceipt = true;
+          return order;
+        })
+      );
+    });
+
     return () => socket.disconnect();
   }, []);
 
@@ -74,7 +84,7 @@ const Restaurant = () => {
           <NewOrders orders={orders} handleOrderPreparation={handleOrderDetails} />
         </Col>
         <Col>
-          <ServedOrders served={served} />
+          <ServedOrders served={served} handleOrderPreparation={handleOrderDetails} />
         </Col>
       </Row>
 

@@ -6,9 +6,6 @@ import { faConciergeBell } from "@fortawesome/free-solid-svg-icons";
 const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
   return (
     <Modal size="lg" show={shown} onHide={onHide}>
-      {/* <Modal.Header closeButton>
-        <Modal.Title>Order details for table T1</Modal.Title>
-      </Modal.Header> */}
       <Modal.Body>
         <Table responsive>
           <thead style={{ borderTop: "hidden" }}>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
-import { faChair } from "@fortawesome/free-solid-svg-icons";
+import { faChair, faPrint, faLink } from "@fortawesome/free-solid-svg-icons";
 import MainContainer from "../../components/MainContainer";
 import AddForm from "../../components/Tables/AddForm";
 import TableRow from "../../components/Tables/TableRow";
 import EditForm from "../../components/Tables/EditForm";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { QRCode } from "react-qr-svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
@@ -18,13 +19,13 @@ const Tables = () => {
   const [show, setShow] = useState(false);
   const [selectedTable, setSelectedTable] = useState({});
 
-  const handleShare = table => {
+  const handleShare = (table) => {
     setSelectedTable(table);
     setShow(true);
   };
 
   useEffect(() => {
-    API.get("/restaurant/4/tables").then(result => {
+    API.get("/restaurant/4/tables").then((result) => {
       setTables(result.data.data);
     });
   }, []);
@@ -33,50 +34,50 @@ const Tables = () => {
     setAdd(!add);
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setInput({ label: event.target.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     API.post("/restaurant/4/tables", {
-      label: input.label
-    }).then(res => {
+      label: input.label,
+    }).then((res) => {
       setTables(res.data.data);
       setAdd(false);
       setInput({ label: "" });
     });
   };
 
-  const handleDelete = tableId => {
+  const handleDelete = (tableId) => {
     if (window.confirm("Are you sure you want to delete this table?")) {
-      API.delete("/restaurant/4/tables/" + tableId).then(res => {
+      API.delete("/restaurant/4/tables/" + tableId).then((res) => {
         setTables(res.data.data);
       });
     }
   };
 
-  const handleEdit = tableId => {
-    API.get("/restaurant/4/tables/" + tableId).then(res => {
+  const handleEdit = (tableId) => {
+    API.get("/restaurant/4/tables/" + tableId).then((res) => {
       setEditingTable(...res.data.data);
       setEdit(true);
     });
   };
 
-  const handleEditChange = event => {
+  const handleEditChange = (event) => {
     setEditingTable({ ...editingTable, label: event.target.value });
   };
 
-  const handleCancel = event => {
+  const handleCancel = (event) => {
     event.preventDefault();
     setEdit(false);
   };
 
-  const handleSave = event => {
+  const handleSave = (event) => {
     event.preventDefault();
     API.put("/restaurant/4/tables/" + editingTable.table_id, {
-      label: editingTable.label
-    }).then(res => {
+      label: editingTable.label,
+    }).then((res) => {
       setTables(res.data.data);
       setEdit(false);
       setEditingTable({});
@@ -90,34 +91,25 @@ const Tables = () => {
           <Modal.Title>{selectedTable.label}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {" "}
-          <QRCode
-            bgColor="#FFFFFF"
-            fgColor="#000000"
-            level="Q"
-            style={{ width: 256 }}
-            value={"http://localhost:3000/order/" + selectedTable.sharing_id}
-          />
-          {"http://localhost:3000/order/" + selectedTable.sharing_id}
+          <QRCode bgColor="#FFFFFF" fgColor="#000000" level="Q" value={"http://localhost:3000/order/" + selectedTable.sharing_id} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
-            Close
-          </Button>
+          <OverlayTrigger placement={"top"} overlay={<Tooltip>{"http://localhost:3000/order/" + selectedTable.sharing_id}</Tooltip>}>
+            <Button variant="primary" onClick={() => setShow(false)}>
+              <FontAwesomeIcon className="mr-2" icon={faLink} />
+              Copy link
+            </Button>
+          </OverlayTrigger>
           <Button variant="primary" onClick={() => setShow(false)}>
-            Save Changes
+            <FontAwesomeIcon className="mr-2" icon={faPrint} />
+            Print QR code
           </Button>
         </Modal.Footer>
       </Modal>
 
       {add && <AddForm handleSubmit={handleSubmit} handleChange={handleChange} input={input} />}
       {edit && (
-        <EditForm
-          editingTable={editingTable}
-          handleSave={handleSave}
-          handleEditChange={handleEditChange}
-          handleCancel={handleCancel}
-        />
+        <EditForm editingTable={editingTable} handleSave={handleSave} handleEditChange={handleEditChange} handleCancel={handleCancel} />
       )}
 
       {tables.length === 0 ? (
@@ -125,14 +117,8 @@ const Tables = () => {
       ) : (
         <table className="table table-hover table-borderless">
           <tbody>
-            {tables.map(table => (
-              <TableRow
-                key={table.table_id}
-                table={table}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-                handleShare={handleShare}
-              />
+            {tables.map((table) => (
+              <TableRow key={table.table_id} table={table} handleEdit={handleEdit} handleDelete={handleDelete} handleShare={handleShare} />
             ))}
           </tbody>
         </table>

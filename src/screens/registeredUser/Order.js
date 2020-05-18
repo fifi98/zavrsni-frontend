@@ -7,7 +7,9 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import AddedItems from "../../components/user/AddedItems";
 import io from "socket.io-client";
-import { Alert, Modal, Button } from "react-bootstrap";
+import { Alert, Modal, Button, Container, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faConciergeBell } from "@fortawesome/free-solid-svg-icons";
 
 const Orders = (props) => {
   const ORDER = {
@@ -27,6 +29,8 @@ const Orders = (props) => {
 
   const [orderStatus, setOrderStatus] = useState(ORDER.NEW);
   const [orderID, setOrderID] = useState(0);
+
+  const [showNotification, setShowNotification] = useState(false);
 
   //Sharing ID stola
   const { tableID } = useParams();
@@ -79,7 +83,7 @@ const Orders = (props) => {
     socket.on("orderServed", (order) => {
       setOrderStatus(ORDER.SERVED);
       setOrderID(order.order_id);
-      alert("served!");
+      setShowNotification(true);
     });
 
     socket.on("message", (msg) => console.log(msg));
@@ -176,6 +180,24 @@ const Orders = (props) => {
           </MainContainer>
         </div>
       </div>
+
+      <Modal show={showNotification} centered>
+        <Modal.Header>
+          <Container>
+            <Row className="justify-content-center">
+              <FontAwesomeIcon icon={faConciergeBell} color="#2F7DF6" size="10x" />
+            </Row>
+          </Container>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="text-center mt-2">Your order has been served! You can now order new items or request a receipt.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowNotification(false)} block>
+            Great!
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
