@@ -7,15 +7,15 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import AddedItems from "../../components/user/AddedItems";
 import io from "socket.io-client";
-import { Alert, Modal, Button, Container, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faConciergeBell } from "@fortawesome/free-solid-svg-icons";
+import { Alert } from "react-bootstrap";
+import OrderStatusModal from "../../components/user/OrderStatusModal";
 
 const Orders = (props) => {
   const ORDER = {
     NEW: 0,
     PLACED: 1,
     SERVED: 2,
+    RECEIPT_REQUESTED: 3,
   };
 
   const [categories, setCategories] = useState([]);
@@ -29,8 +29,6 @@ const Orders = (props) => {
 
   const [orderStatus, setOrderStatus] = useState(ORDER.NEW);
   const [orderID, setOrderID] = useState(0);
-
-  const [showNotification, setShowNotification] = useState(false);
 
   //Sharing ID stola
   const { tableID } = useParams();
@@ -54,7 +52,6 @@ const Orders = (props) => {
       // Send to the server
       socket.emit("order", orderMessage);
       setOrderStatus(ORDER.PLACED);
-      alert("sent new order");
     }
 
     //
@@ -64,7 +61,6 @@ const Orders = (props) => {
       // Send to the server
       socket.emit("orderUpdate", orderMessage);
       setOrderStatus(ORDER.PLACED);
-      alert("order update");
     }
 
     setOrderPlaced(true);
@@ -72,7 +68,7 @@ const Orders = (props) => {
 
   const handleRequestReceipt = () => {
     socket.emit("requestReceipt", { order_id: orderID });
-    alert("request receipt");
+    setOrderStatus(ORDER.RECEIPT_REQUESTED);
   };
 
   useEffect(() => {
@@ -83,7 +79,6 @@ const Orders = (props) => {
     socket.on("orderServed", (order) => {
       setOrderStatus(ORDER.SERVED);
       setOrderID(order.order_id);
-      setShowNotification(true);
     });
 
     socket.on("message", (msg) => console.log(msg));
@@ -181,23 +176,7 @@ const Orders = (props) => {
         </div>
       </div>
 
-      <Modal show={showNotification} centered>
-        <Modal.Header>
-          <Container>
-            <Row className="justify-content-center">
-              <FontAwesomeIcon icon={faConciergeBell} color="#2F7DF6" size="10x" />
-            </Row>
-          </Container>
-        </Modal.Header>
-        <Modal.Body>
-          <p className="text-center mt-2">Your order has been served! You can now order new items or request a receipt.</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => setShowNotification(false)} block>
-            Great!
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <OrderStatusModal orderStatus={orderStatus} />
     </>
   );
 };
