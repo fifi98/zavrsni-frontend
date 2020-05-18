@@ -35,6 +35,7 @@ const Orders = (props) => {
   const handleOrder = (event) => {
     // Prepare the message we are going to send to the server
     const orderMessage = {
+      table_id: tableID,
       items: [],
     };
 
@@ -46,8 +47,6 @@ const Orders = (props) => {
 
     // If it's a new order, create it and change status
     if (orderStatus === ORDER.NEW) {
-      // Send the table sharing ID when creating new order
-      orderMessage.table_id = tableID;
       // Send to the server
       socket.emit("order", orderMessage);
       setOrderStatus(ORDER.PLACED);
@@ -60,10 +59,16 @@ const Orders = (props) => {
       orderMessage.order_id = orderID;
       // Send to the server
       socket.emit("orderUpdate", orderMessage);
+      setOrderStatus(ORDER.PLACED);
       alert("order update");
     }
 
     setOrderPlaced(true);
+  };
+
+  const handleRequestReceipt = () => {
+    socket.emit("requestReceipt", { order_id: orderID });
+    alert("request receipt");
   };
 
   useEffect(() => {
@@ -124,6 +129,7 @@ const Orders = (props) => {
           )}
 
           <AddedItems addedItems={addedItems} handleOrder={handleOrder} />
+          <button onClick={handleRequestReceipt}>Request receipt</button>
         </div>
 
         <div className="col-xs-12 col-md-12 col-lg-9">
