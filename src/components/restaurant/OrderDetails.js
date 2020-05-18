@@ -1,5 +1,7 @@
 import React from "react";
 import { Table, Modal, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faConciergeBell } from "@fortawesome/free-solid-svg-icons";
 
 const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
   return (
@@ -37,8 +39,11 @@ const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary">Close</Button>
+        <Button variant="secondary" className="mr-auto">
+          Close
+        </Button>
         <Button variant="primary" onClick={() => handleServeOrder(order.order_id)}>
+          <FontAwesomeIcon className="mr-2" icon={faConciergeBell} />
           Served
         </Button>
       </Modal.Footer>
