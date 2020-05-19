@@ -72,7 +72,6 @@ const Orders = (props) => {
   };
 
   useEffect(() => {
-    //Provjeri postoji li taj stol - ako da
     socket.connect();
 
     // When the order has been served
@@ -81,7 +80,10 @@ const Orders = (props) => {
       setOrderID(order.order_id);
     });
 
-    socket.on("message", (msg) => console.log(msg));
+    // When the order is completed
+    socket.on("orderComplete", () => {
+      alert("thanks for the order");
+    });
 
     API.get("/restaurant/4/menu/categories").then((result) => {
       setCategories(result.data.data);

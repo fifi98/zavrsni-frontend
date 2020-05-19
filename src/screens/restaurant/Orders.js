@@ -69,6 +69,13 @@ const Restaurant = () => {
     setShowOrderDetails(false);
   };
 
+  const handlePaidOrder = (order_id) => {
+    //
+    socket.emit("orderComplete", { order_id: order_id });
+    setShowOrderDetails(false);
+    setServed((old) => old.filter((order) => order.order_id !== order_id));
+  };
+
   return (
     <div>
       <MainContainer icon={faTag} title="Orders">
@@ -93,6 +100,7 @@ const Restaurant = () => {
         shown={showOrderDetails}
         onHide={() => setShowOrderDetails(false)}
         handleServeOrder={handleServeOrder}
+        handlePaidOrder={handlePaidOrder}
       />
     </div>
   );

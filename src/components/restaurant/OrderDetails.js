@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faConciergeBell } from "@fortawesome/free-solid-svg-icons";
+import { faConciergeBell, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 
 const OrderDetails = ({ order, shown, onHide, handleServeOrder, handlePaidOrder }) => {
   return (
@@ -46,10 +46,10 @@ const OrderDetails = ({ order, shown, onHide, handleServeOrder, handlePaidOrder 
             Served
           </Button>
         )}
-        {/* If the order is served */}
-        {order.status === 2 && (
+        {/* If the receipt is requested */}
+        {order.status === 3 && (
           <Button variant="primary" onClick={() => handlePaidOrder(order.order_id)}>
-            <FontAwesomeIcon className="mr-2" icon={faConciergeBell} />
+            <FontAwesomeIcon className="mr-2" icon={faDollarSign} />
             Paid
           </Button>
         )}
