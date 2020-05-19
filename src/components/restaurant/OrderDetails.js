@@ -3,7 +3,7 @@ import { Table, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faConciergeBell } from "@fortawesome/free-solid-svg-icons";
 
-const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
+const OrderDetails = ({ order, shown, onHide, handleServeOrder, handlePaidOrder }) => {
   return (
     <Modal size="lg" show={shown} onHide={onHide}>
       <Modal.Body>
@@ -18,7 +18,7 @@ const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
           </thead>
           <tbody>
             {order.items.map((item) => (
-              <tr key={item.item_id}>
+              <tr key={item.item_id} className={item.served ? "table-success" : ""}>
                 <td>{item.quantity}</td>
                 <td>{item.name}</td>
                 <td>{item.price} kn</td>
@@ -39,10 +39,20 @@ const OrderDetails = ({ order, shown, onHide, handleServeOrder }) => {
         <Button variant="secondary" className="mr-auto">
           Close
         </Button>
-        <Button variant="primary" onClick={() => handleServeOrder(order.order_id)}>
-          <FontAwesomeIcon className="mr-2" icon={faConciergeBell} />
-          Served
-        </Button>
+        {/* If the order is placed */}
+        {order.status === 1 && (
+          <Button variant="primary" onClick={() => handleServeOrder(order.order_id)}>
+            <FontAwesomeIcon className="mr-2" icon={faConciergeBell} />
+            Served
+          </Button>
+        )}
+        {/* If the order is served */}
+        {order.status === 2 && (
+          <Button variant="primary" onClick={() => handlePaidOrder(order.order_id)}>
+            <FontAwesomeIcon className="mr-2" icon={faConciergeBell} />
+            Paid
+          </Button>
+        )}
       </Modal.Footer>
     </Modal>
   );
