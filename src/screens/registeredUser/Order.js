@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
 import MainContainer from "../../components/MainContainer";
-import { faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import FoodCard from "../../components/user/FoodCard";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
@@ -9,6 +9,7 @@ import AddedItems from "../../components/user/AddedItems";
 import io from "socket.io-client";
 import { Alert } from "react-bootstrap";
 import OrderStatusModal from "../../components/user/OrderStatusModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Orders = (props) => {
   const ORDER = {
@@ -16,6 +17,7 @@ const Orders = (props) => {
     PLACED: 1,
     SERVED: 2,
     RECEIPT_REQUESTED: 3,
+    COMPLETED: 4,
   };
 
   const [categories, setCategories] = useState([]);
@@ -82,7 +84,7 @@ const Orders = (props) => {
 
     // When the order is completed
     socket.on("orderComplete", () => {
-      alert("thanks for the order");
+      setOrderStatus(ORDER.COMPLETED);
     });
 
     API.get("/restaurant/4/menu/categories").then((result) => {
@@ -117,6 +119,14 @@ const Orders = (props) => {
       setAddedItems((old) => [...old, { ...item, quantity: 1 }]);
     }
   };
+
+  if (orderStatus === ORDER.COMPLETED)
+    return (
+      <div>
+        <FontAwesomeIcon icon={faCheckCircle} size={"10x"} />
+        <h3>Order completed</h3>
+      </div>
+    );
 
   return (
     <>
