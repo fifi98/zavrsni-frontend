@@ -8,6 +8,7 @@ import EditForm from "../../components/Tables/EditForm";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { QRCode } from "react-qr-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
@@ -95,10 +96,12 @@ const Tables = () => {
         </Modal.Body>
         <Modal.Footer>
           <OverlayTrigger placement={"top"} overlay={<Tooltip>{"http://localhost:3000/order/" + selectedTable.sharing_id}</Tooltip>}>
-            <Button variant="primary" onClick={() => setShow(false)}>
-              <FontAwesomeIcon className="mr-2" icon={faLink} />
-              Copy link
-            </Button>
+            <CopyToClipboard text={"http://localhost:3000/order/" + selectedTable.sharing_id}>
+              <Button variant="primary" onClick={() => setShow(false)}>
+                <FontAwesomeIcon className="mr-2" icon={faLink} />
+                Copy link
+              </Button>
+            </CopyToClipboard>
           </OverlayTrigger>
           <Button variant="primary" onClick={() => setShow(false)}>
             <FontAwesomeIcon className="mr-2" icon={faPrint} />

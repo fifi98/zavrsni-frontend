@@ -79,11 +79,11 @@ const Restaurant = () => {
   return (
     <div>
       <MainContainer icon={faTag} title="Orders">
-        <div className="row mt-4 p-2">
+        <Row className="mt-4 p-2">
           {tables.map((table) => (
             <RestaurantTable key={table.table_id} table={table} />
           ))}
-        </div>
+        </Row>
       </MainContainer>
 
       <Row>
