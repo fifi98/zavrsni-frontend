@@ -2,16 +2,17 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faListAlt } from "@fortawesome/free-solid-svg-icons";
+import { Row, Col, Badge } from "react-bootstrap";
 
 const ListItem = ({ item }) => {
   return (
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      {item.name} <span class="badge badge-primary badge-pill">{item.price} kn</span>
+      {item.name} <Badge variant="secondary">{item.price} kn</Badge>
     </li>
   );
 };
 
-const AddedItems = ({ addedItems, handleOrder, children }) => {
+const AddedItems = ({ addedItems, handleOrder, orderStatus, handleRequestReceipt }) => {
   return (
     <div className="my-3 p-3 bg-white rounded shadow-sm">
       <div className="clearfix border-bottom border-gray mb-2">
@@ -27,9 +28,23 @@ const AddedItems = ({ addedItems, handleOrder, children }) => {
         ))}
       </ul>
       <div className="clearfix pt-2 mt-2">
-        <button className="btn btn-primary w-100" onClick={handleOrder}>
-          Click to order (120$)
-        </button>
+        <Row>
+          {(orderStatus === 0 || orderStatus === 2) && (
+            <Col>
+              <button className="btn btn-primary w-100" onClick={handleOrder}>
+                Click to order
+              </button>
+            </Col>
+          )}
+
+          {orderStatus === 2 && (
+            <Col>
+              <button className="btn btn-primary w-100" onClick={handleRequestReceipt}>
+                Request receipt
+              </button>
+            </Col>
+          )}
+        </Row>
       </div>
     </div>
   );

@@ -1,13 +1,15 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Badge } from "react-bootstrap";
 
 const CategoryRow = ({ table, handleEdit, handleDelete }) => {
   return (
     <tr className="border-bottom border-gray" key={table.category_id}>
       <td>{table.category}</td>
       <td className="text-center">
-        <span className="badge badge-success">Broj jela u toj kategoriji</span>
+        <Badge variant="secondary">{table.num_items} items</Badge>
+        {/* <span className="badge badge-success">{table.num_items} items</span> */}
       </td>
       <td className="text-right">
         <FontAwesomeIcon
