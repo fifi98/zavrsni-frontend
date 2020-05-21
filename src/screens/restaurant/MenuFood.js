@@ -16,11 +16,13 @@ const Tables = () => {
   const [input, setInput] = useState({ name: "", description: "", price: "", categoryId: 0 });
 
   const handleSubmit = (event) => {
+    console.log(input);
+
     event.preventDefault();
     API.post("/restaurant/4/menu/categories/" + input.categoryId + "/items", input).then((response) => {
       if (selectedCategory === parseInt(input.categoryId)) setMenuItems(response.data.data);
       setAdd(false);
-      setInput({ name: "", description: "", price: "", categoryId: 0 });
+      setInput({ name: "", description: "", price: "", categoryId: selectedCategory });
     });
   };
 
@@ -32,7 +34,7 @@ const Tables = () => {
     API.get("/restaurant/4/menu/categories").then((result) => {
       setCategories(result.data.data);
       //Select the first category by default
-      setInput((i) => i, { categoryId: result.data.data[0].category_id });
+      setInput((i) => ({ ...i, categoryId: result.data.data[0].category_id }));
       setSelectedCategory(result.data.data[0].category_id);
     });
   }, []);
@@ -50,6 +52,14 @@ const Tables = () => {
 
   const handleSearchChange = (event) => {
     setSearchKeyword(event.target.value);
+  };
+
+  const handleDelete = (item_id) => {
+    if (!window.confirm("Are you sure you want to delete this item?")) return;
+
+    API.delete(`/restaurant/4/menu/categories/${selectedCategory}/items/${item_id}`).then((results) => {
+      setMenuItems((old) => old.filter((item) => item.item_id !== item_id));
+    });
   };
 
   return (
@@ -77,8 +87,12 @@ const Tables = () => {
             onChange={handleSearchChange}
           />
         </div>
+        {menuItems.length === 0 && <p>There are no items in this category</p>}
         {menuItems.map(
-          (item) => item.name.toLowerCase().includes(searchKeyword.toLowerCase()) && <FoodCard item={item} key={item.item_id} />
+          (item) =>
+            item.name.toLowerCase().includes(searchKeyword.toLowerCase()) && (
+              <FoodCard item={item} key={item.item_id} handleDelete={handleDelete} />
+            )
         )}
       </div>
     </MainContainer>
