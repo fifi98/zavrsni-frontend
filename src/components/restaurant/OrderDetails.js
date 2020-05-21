@@ -29,14 +29,14 @@ const OrderDetails = ({ order, shown, onHide, handleServeOrder, handlePaidOrder 
           <tfoot>
             <tr>
               <td colSpan="4" className="text-right">
-                234 kn
+                {order.total} kn
               </td>
             </tr>
           </tfoot>
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" className="mr-auto">
+        <Button variant="secondary" className="mr-auto" onClick={onHide}>
           Close
         </Button>
         {/* If the order is placed */}
