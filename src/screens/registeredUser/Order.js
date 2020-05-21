@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
 import MainContainer from "../../components/MainContainer";
-import { faUtensils, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faCheckCircle, faChair } from "@fortawesome/free-solid-svg-icons";
 import FoodCard from "../../components/user/FoodCard";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import AddedItems from "../../components/user/AddedItems";
 import io from "socket.io-client";
-import { Alert } from "react-bootstrap";
+import { Alert, Container, Row, Col, Button, Jumbotron } from "react-bootstrap";
 import OrderStatusModal from "../../components/user/OrderStatusModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -31,6 +31,9 @@ const Orders = (props) => {
 
   const [orderStatus, setOrderStatus] = useState(ORDER.NEW);
   const [orderID, setOrderID] = useState(0);
+
+  const [confirmed, setConfirmed] = useState(false);
+  const [table, setTable] = useState({});
 
   //Sharing ID stola
   const { tableID } = useParams();
@@ -74,6 +77,11 @@ const Orders = (props) => {
   };
 
   useEffect(() => {
+    // Check if current table is occupied
+    API.get(`/restaurant/table/${tableID}`).then((result) => {
+      setTable(result.data.data);
+    });
+
     socket.connect();
 
     // When the order has been served
@@ -128,6 +136,30 @@ const Orders = (props) => {
       </div>
     );
 
+  if (!confirmed)
+    return (
+      <Container>
+        <Jumbotron className="justify-content-center" style={{ marginTop: 40 }}>
+          <Container className="text-center">
+            <FontAwesomeIcon icon={faChair} color="#2F7DF6" size="10x" />
+            <br />
+            <br />
+            <br />
+            <h2>Are you sitting at the table {table.label}?</h2>
+            <br />
+            <br />
+            <p>In order to proceed on making an order, please confirm that you are sitting at the table {table.label}.</p>
+            <br />
+            <p>
+              <Button variant="primary" onClick={() => setConfirmed(true)}>
+                Yes, I want to make an order
+              </Button>
+            </p>
+          </Container>
+        </Jumbotron>
+      </Container>
+    );
+
   return (
     <>
       <Navbar {...props} />
@@ -139,8 +171,12 @@ const Orders = (props) => {
             </Alert>
           )}
 
-          <AddedItems addedItems={addedItems} handleOrder={handleOrder} />
-          <button onClick={handleRequestReceipt}>Request receipt</button>
+          <AddedItems
+            addedItems={addedItems}
+            handleOrder={handleOrder}
+            orderStatus={orderStatus}
+            handleRequestReceipt={handleRequestReceipt}
+          />
         </div>
 
         <div className="col-xs-12 col-md-12 col-lg-9">
