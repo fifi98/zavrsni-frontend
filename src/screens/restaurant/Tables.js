@@ -92,7 +92,7 @@ const Tables = () => {
           <Modal.Title>{selectedTable.label}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <QRCode bgColor="#FFFFFF" fgColor="#000000" level="Q" value={"http://localhost:3000/order/" + selectedTable.sharing_id} />
+          <QRCode bgColor="#FFFFFF" fgColor="#000000" level="Q" value={`http://localhost:3000/order/${selectedTable.sharing_id}`} />
         </Modal.Body>
         <Modal.Footer>
           <OverlayTrigger placement={"top"} overlay={<Tooltip>{"http://localhost:3000/order/" + selectedTable.sharing_id}</Tooltip>}>

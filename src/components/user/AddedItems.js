@@ -29,7 +29,12 @@ const AddedItems = ({ addedItems, handleOrder, orderStatus, handleRequestReceipt
       </ul>
       <div className="clearfix pt-2 mt-2">
         <Row>
-          {(orderStatus === 0 || orderStatus === 2) && (
+          {addedItems.length === 0 && (
+            <Col>
+              <p className="text-center">Please select items below you would like to add to your order.</p>
+            </Col>
+          )}
+          {(orderStatus === 0 || orderStatus === 2) && addedItems.length > 0 && (
             <Col>
               <button className="btn btn-primary w-100" onClick={handleOrder}>
                 Click to order

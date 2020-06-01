@@ -145,7 +145,7 @@ const Orders = (props) => {
             <br />
             <br />
             <br />
-            <h2>Are you sitting at the table {table.label}?</h2>
+            <h2>Are you at the table {table.label}?</h2>
             <br />
             <br />
             <p>In order to proceed on making an order, please confirm that you are sitting at the table {table.label}.</p>

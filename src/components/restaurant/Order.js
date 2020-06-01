@@ -8,7 +8,7 @@ const Order = ({ order, onClick }) => {
     <div className={`card ${order.requestedReceipt ? "bg-success" : ""} mt-3`} onClick={() => onClick(order.order_id)}>
       <div className={`card-body ${order.requestedReceipt ? "text-white" : ""}`}>
         <div className="row">
-          <div className="col-11">
+          <div className="col">
             <h6 className="card-title m-0">
               <FontAwesomeIcon className="mr-2" size="sm" icon={faChair} />
               {order.table_name}
@@ -28,7 +28,7 @@ const Order = ({ order, onClick }) => {
             </p>
           </div>
           {order.requestedReceipt && (
-            <div className="col-1 d-flex justify-content-center align-items-center">
+            <div className="col d-flex align-items-end flex-column align-self-center pr-2">
               <FontAwesomeIcon className="mr-2" size="xl" color="white" icon={faMoneyBillAlt} />
             </div>
           )}
