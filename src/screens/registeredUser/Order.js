@@ -31,6 +31,7 @@ const Orders = (props) => {
 
   const [orderStatus, setOrderStatus] = useState(ORDER.NEW);
   const [orderID, setOrderID] = useState(0);
+  const [orderItems, setOrderItems] = useState([]);
 
   const [confirmed, setConfirmed] = useState(false);
   const [table, setTable] = useState({});
@@ -67,6 +68,10 @@ const Orders = (props) => {
       socket.emit("orderUpdate", orderMessage);
       setOrderStatus(ORDER.PLACED);
     }
+
+    // Add new items to the order
+    setOrderItems((old) => [...old, ...addedItems]);
+    setAddedItems([]);
 
     setOrderPlaced(true);
   };
@@ -165,13 +170,14 @@ const Orders = (props) => {
       <Navbar {...props} />
       <div className="row dashboard">
         <div className="col-xs-12 col-md-12 col-lg-3">
-          {orderPlaced && (
+          {/* {orderPlaced && (
             <Alert variant="success" className="mt-2">
               Order status: <b>Placed</b>
             </Alert>
-          )}
+          )} */}
 
           <AddedItems
+            orderItems={orderItems}
             addedItems={addedItems}
             handleOrder={handleOrder}
             orderStatus={orderStatus}
