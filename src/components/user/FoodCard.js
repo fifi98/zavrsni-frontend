@@ -1,6 +1,6 @@
 import React from "react";
 
-const FoodCard = ({ item, onClick, selected }) => {
+const FoodCard = ({ item, onClick, selected, addedItems, handleQuantityChange }) => {
   return (
     <div className={`card food-card mb-3 ${selected ? "text-white bg-primary" : ""} mt-2`} onClick={(event) => onClick(event, item)}>
       <div className="row no-gutters">
@@ -15,7 +15,16 @@ const FoodCard = ({ item, onClick, selected }) => {
         </div>
         {selected && (
           <div className="col-2 align-self-center">
-            <input name="quantity" className="form-control form-control-sm" value="1" style={{ width: 40, textAlign: "center" }} />
+            <input
+              name="quantity"
+              className="form-control form-control-sm"
+              value={addedItems.find((i) => i.item_id === item.item_id).quantity}
+              onChange={(event) => handleQuantityChange(item.item_id, event.target.value)}
+              style={{ width: 50, textAlign: "center" }}
+              type="number"
+              maxLength="2"
+              width="2"
+            />
           </div>
         )}
       </div>

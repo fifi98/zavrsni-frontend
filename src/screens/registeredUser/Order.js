@@ -122,9 +122,9 @@ const Orders = (props) => {
   // Adding or removing an item from the order
   const handleAddItem = (event, item) => {
     // Do not fire the event if clicked on quantity input
-    if (event.target.type === "text") {
-      return;
-    }
+    if (event.target.type === "number") return;
+
+    console.log(addedItems);
 
     if (addedItems.find((i) => i.item_id === item.item_id)) {
       // Remove the item
@@ -133,6 +133,10 @@ const Orders = (props) => {
       // Add the tem
       setAddedItems((old) => [...old, { ...item, quantity: 1 }]);
     }
+  };
+
+  const handleQuantityChange = (itemId, quantity) => {
+    setAddedItems(addedItems.map((item) => (item.item_id === itemId ? { ...item, quantity: quantity } : item)));
   };
 
   if (orderStatus === ORDER.COMPLETED) return <OrderConfirmation />;
@@ -194,7 +198,9 @@ const Orders = (props) => {
                     <FoodCard
                       item={item}
                       key={item.item_id}
+                      addedItems={addedItems}
                       onClick={handleAddItem}
+                      handleQuantityChange={handleQuantityChange}
                       selected={addedItems.find((i) => i.item_id === item.item_id)}
                     />
                   )
