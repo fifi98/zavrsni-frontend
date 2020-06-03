@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
 import MainContainer from "../../components/MainContainer";
-import { faUtensils, faCheckCircle, faChair } from "@fortawesome/free-solid-svg-icons";
-import FoodCard from "../../components/user/FoodCard";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import FoodCard from "../../components/user/FoodCard";
 import Navbar from "../../components/Navbar";
 import AddedItems from "../../components/user/AddedItems";
 import io from "socket.io-client";
-import { Alert, Container, Row, Col, Button, Jumbotron } from "react-bootstrap";
 import OrderStatusModal from "../../components/user/OrderStatusModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TableConfirmation from "../../components/user/TableConfirmation";
+import OrderConfirmation from "../../components/user/OrderConfirmation";
 
 const Orders = (props) => {
   const ORDER = {
@@ -26,7 +26,6 @@ const Orders = (props) => {
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const [addedItems, setAddedItems] = useState([]);
-  const [orderPlaced, setOrderPlaced] = useState(false);
   const [socket] = useState(io("http://localhost:8080/", { autoConnect: false }));
 
   const [orderStatus, setOrderStatus] = useState(ORDER.NEW);
@@ -72,8 +71,6 @@ const Orders = (props) => {
     // Add new items to the order
     setOrderItems((old) => [...old, ...addedItems]);
     setAddedItems([]);
-
-    setOrderPlaced(true);
   };
 
   const handleRequestReceipt = () => {
@@ -123,7 +120,12 @@ const Orders = (props) => {
   };
 
   // Adding or removing an item from the order
-  const handleAddItem = (item) => {
+  const handleAddItem = (event, item) => {
+    // Do not fire the event if clicked on quantity input
+    if (event.target.type === "text") {
+      return;
+    }
+
     if (addedItems.find((i) => i.item_id === item.item_id)) {
       // Remove the item
       setAddedItems((old) => old.filter((i) => i.item_id !== item.item_id));
@@ -133,37 +135,9 @@ const Orders = (props) => {
     }
   };
 
-  if (orderStatus === ORDER.COMPLETED)
-    return (
-      <div>
-        <FontAwesomeIcon icon={faCheckCircle} size={"10x"} />
-        <h3>Order completed</h3>
-      </div>
-    );
+  if (orderStatus === ORDER.COMPLETED) return <OrderConfirmation />;
 
-  if (!confirmed)
-    return (
-      <Container>
-        <Jumbotron className="justify-content-center" style={{ marginTop: 40 }}>
-          <Container className="text-center">
-            <FontAwesomeIcon icon={faChair} color="#2F7DF6" size="10x" />
-            <br />
-            <br />
-            <br />
-            <h2>Are you at the table {table.label}?</h2>
-            <br />
-            <br />
-            <p>In order to proceed on making an order, please confirm that you are sitting at the table {table.label}.</p>
-            <br />
-            <p>
-              <Button variant="primary" onClick={() => setConfirmed(true)}>
-                Yes, I want to make an order
-              </Button>
-            </p>
-          </Container>
-        </Jumbotron>
-      </Container>
-    );
+  if (!confirmed) return <TableConfirmation table={table} setConfirmed={setConfirmed} />;
 
   return (
     <>
