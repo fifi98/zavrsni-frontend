@@ -2,13 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
-
 import Order from "./screens/registeredUser/Order";
 import RestaurantRoutes from "./routes/RestaurantRoutes";
-import UserRoutes from "./routes/UserRoutes";
-import GuestOrder from "./screens/guest/GuestOrder";
-// import CustomerRoutes from "./components/routes/CustomerRoutes";
-// import GuestRoutes from "./components/routes/GuestRoutes";
 
 import "popper.js";
 import "jquery/src/jquery";

@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUtensils, faPercentage, faChartLine, faChair, faFileInvoice, faTag, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faPercentage, faChartLine, faChair, faClipboardCheck, faTag, faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const Sidebar = (props) => {
@@ -50,12 +50,15 @@ const Sidebar = (props) => {
             Menu items
           </Link>
         </li>
-        {/* <li className="nav-item">
-          <Link to="/restaurant/discounts" className={props.location.pathname === "/restaurant/discounts" ? "nav-link active" : "nav-link"}>
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faPercentage} />
-            Discounts
+        <li className="nav-item">
+          <Link
+            to="/restaurant/past-orders"
+            className={props.location.pathname === "/restaurant/past-orders" ? "nav-link active" : "nav-link"}
+          >
+            <FontAwesomeIcon className="mr-2" fixedWidth icon={faClipboardCheck} />
+            Past orders
           </Link>
-        </li> */}
+        </li>
         {/* <li className="nav-item">
           <Link to="/restaurant/stats" className={props.location.pathname === "/restaurant/stats" ? "nav-link active" : "nav-link"}>
             <FontAwesomeIcon className="mr-2" fixedWidth icon={faChartLine} />
