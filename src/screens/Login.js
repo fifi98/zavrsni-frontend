@@ -33,7 +33,7 @@ const Login = (props) => {
           if (res.data.user.type === "restaurant") {
             props.history.push("/restaurant/orders");
           } else {
-            props.history.push("/customer");
+            props.history.push("/customer/");
           }
         } else {
           setError({ error: true, message: "" });
