@@ -1,8 +1,8 @@
 import React from "react";
-import Orders from "../screens/restaurant/Orders";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/restaurant/Sidebar";
 import PrivateRoute from "../components/Routes/PrivateRoute";
+import PastOrders from "../screens/registeredUser/PastOrders";
 
 const CustomerRoutes = (props) => {
   return (
@@ -14,7 +14,7 @@ const CustomerRoutes = (props) => {
         </div>
 
         <div className="col-xs-12 col-md-12 col-lg-9">
-          <PrivateRoute path="/customer/" component={Orders} exact />
+          <PrivateRoute path="/customer/" component={PastOrders} exact />
         </div>
       </div>
     </>
