@@ -4,6 +4,8 @@ import Login from "./screens/Login";
 import Register from "./screens/Register";
 import Order from "./screens/registeredUser/Order";
 import RestaurantRoutes from "./routes/RestaurantRoutes";
+import CustomerRoutes from "./routes/CustomerRoutes";
+import PrivateRoute from "./components/Routes/PrivateRoute";
 
 import "popper.js";
 import "jquery/src/jquery";
@@ -24,13 +26,8 @@ function App() {
         {/* Guest users and registered users routes */}
         <Route path="/order/:tableID" component={Order} />
 
-        {/* <Route path="/customer" component={CustomerRoutes} />
-        <Route path="/guest" component={GuestRoutes} /> */}
-
-        {/* <PrivateRoute path="/restaurant" component={Restaurant} />
-        <PrivateRoute path="/customer" component={User} />
-
-        <Route path="/user" component={User} /> */}
+        {/* Registered users routes */}
+        <PrivateRoute path="/customer" component={CustomerRoutes} />
       </Switch>
     </Router>
   );

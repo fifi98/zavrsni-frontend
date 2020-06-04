@@ -20,12 +20,9 @@ const RestaurantRoutes = (props) => {
         <div className="col-xs-12 col-md-12 col-lg-9">
           <PrivateRoute path="/restaurant/" component={Orders} exact />
           <PrivateRoute path="/restaurant/orders" component={Orders} exact />
-          {/* <PrivateRoute path="/restaurant/reservations" component={Reservations} exact /> */}
           <PrivateRoute path="/restaurant/tables" component={Tables} exact />
-          <PrivateRoute path="/restaurant/menufood" component={MenuFood} exact />
+          <PrivateRoute path="/restaurant/menu/items" component={MenuFood} exact />
           <PrivateRoute path="/restaurant/menu/categories" component={MenuCategories} exact />
-          {/* <PrivateRoute path="/restaurant/discounts" component={Discounts} exact /> */}
-          {/* <PrivateRoute path="/restaurant/stats" component={Stats} exact /> */}
           <PrivateRoute path="/restaurant/past-orders" component={PastOrders} exact />
         </div>
       </div>

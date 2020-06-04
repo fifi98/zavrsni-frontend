@@ -4,14 +4,14 @@ import "../css/Login.css";
 import Input from "../components/Input";
 import API from "../util/api";
 
-const Login = props => {
+const Login = (props) => {
   const [input, setInput] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const [error, setError] = useState({ error: false, message: "" });
 
-  const submitHandler = event => {
+  const submitHandler = (event) => {
     event.preventDefault();
 
     if (input.email.length === 0 || input.password.length === 0) {
@@ -21,11 +21,9 @@ const Login = props => {
 
     API.post("/user/login", {
       email: input.email,
-      password: input.password
+      password: input.password,
     })
-      .then(res => {
-        console.log(res);
-
+      .then((res) => {
         if (res.data.success) {
           if (res.data.user.type === "restaurant") {
             props.history.push("/restaurant");
@@ -36,10 +34,10 @@ const Login = props => {
           setError({ error: true, message: "" });
         }
       })
-      .catch(err => setError({ ...error, error: true }));
+      .catch((err) => setError({ ...error, error: true }));
   };
 
-  const changeHandler = event => {
+  const changeHandler = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
 
@@ -51,24 +49,9 @@ const Login = props => {
           <p>Please login below using your credentials.</p>
         </div>
 
-        <Input
-          type="email"
-          name="email"
-          label="Email address"
-          value={input.email}
-          error={error.error}
-          onChange={changeHandler}
-          autoFocus
-        />
+        <Input type="email" name="email" label="Email address" value={input.email} error={error.error} onChange={changeHandler} autoFocus />
 
-        <Input
-          type="password"
-          name="password"
-          label="Password"
-          value={input.password}
-          error={error.error}
-          onChange={changeHandler}
-        />
+        <Input type="password" name="password" label="Password" value={input.password} error={error.error} onChange={changeHandler} />
 
         <div className="mb-3">
           <Link to="/register">Don't have an account?</Link>

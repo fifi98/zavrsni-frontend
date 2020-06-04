@@ -1,70 +1,48 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUtensils, faPercentage, faChartLine, faChair, faClipboardCheck, faTag, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faChair, faClipboardCheck, faTag, faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const Sidebar = (props) => {
+const Sidebar = ({ location }) => {
+  const restaurantRoutes = [
+    {
+      name: "Orders",
+      icon: faTag,
+      path: "/restaurant/orders",
+    },
+    {
+      name: "Tables",
+      icon: faChair,
+      path: "/restaurant/tables",
+    },
+    {
+      name: "Menu categories",
+      icon: faBars,
+      path: "/restaurant/menu/categories",
+    },
+    {
+      name: "Menu items",
+      icon: faUtensils,
+      path: "/restaurant/menu/items",
+    },
+    {
+      name: "Past orders",
+      icon: faClipboardCheck,
+      path: "/restaurant/past-orders",
+    },
+  ];
+
   return (
     <div className="my-3 bg-white rounded shadow-sm p-2">
       <ul className="nav flex-column nav-pills">
-        <li className="nav-item">
-          <Link
-            to="/restaurant/orders"
-            className={
-              props.location.pathname === "/restaurant/orders" || props.location.pathname === "/restaurant/"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faTag} />
-            Orders
-          </Link>
-        </li>
-        {/* <li className="nav-item">
-          <Link
-            to="/restaurant/reservations"
-            className={props.location.pathname === "/restaurant/reservations" ? "nav-link active" : "nav-link"}
-          >
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faFileInvoice} />
-            Reservations
-          </Link>
-        </li> */}
-        <li className="nav-item">
-          <Link to="/restaurant/tables" className={props.location.pathname === "/restaurant/tables" ? "nav-link active" : "nav-link"}>
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faChair} />
-            Tables
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            to="/restaurant/menu/categories"
-            className={props.location.pathname === "/restaurant/menu/categories" ? "nav-link active" : "nav-link"}
-          >
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faBars} />
-            Menu categories
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/restaurant/menufood" className={props.location.pathname === "/restaurant/menufood" ? "nav-link active" : "nav-link"}>
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faUtensils} />
-            Menu items
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            to="/restaurant/past-orders"
-            className={props.location.pathname === "/restaurant/past-orders" ? "nav-link active" : "nav-link"}
-          >
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faClipboardCheck} />
-            Past orders
-          </Link>
-        </li>
-        {/* <li className="nav-item">
-          <Link to="/restaurant/stats" className={props.location.pathname === "/restaurant/stats" ? "nav-link active" : "nav-link"}>
-            <FontAwesomeIcon className="mr-2" fixedWidth icon={faChartLine} />
-            Statistics
-          </Link>
-        </li> */}
+        {restaurantRoutes.map((route) => (
+          <li className="nav-item">
+            <Link to={route.path} className={location.pathname === route.path ? "nav-link active" : "nav-link"}>
+              <FontAwesomeIcon className="mr-2" fixedWidth icon={route.icon} />
+              {route.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
