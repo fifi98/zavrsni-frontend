@@ -8,6 +8,7 @@ import OrderDetails from "../../components/restaurant/OrderDetails";
 import NewOrders from "../../components/restaurant/NewOrders";
 import api from "../../util/api";
 import io from "socket.io-client";
+import { useSelector } from "react-redux";
 
 const Restaurant = () => {
   const [showOrderDetails, setShowOrderDetails] = useState(false);
@@ -16,6 +17,7 @@ const Restaurant = () => {
   const [served, setServed] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState({ items: [] });
   const [socket] = useState(io("http://localhost:8080/", { autoConnect: false }));
+  const user = useSelector((state) => state);
 
   // When the page loads
   useEffect(() => {
@@ -50,7 +52,7 @@ const Restaurant = () => {
   // When clicked on an order
   const handleOrderDetails = (order_id) => {
     // Get selected order's details
-    api.get(`/restaurant/4/orders/${order_id}`).then((response) => {
+    api.get(`/restaurant/${user.user_id}/orders/${order_id}`).then((response) => {
       setSelectedOrder(response.data.data);
       setShowOrderDetails(true);
     });

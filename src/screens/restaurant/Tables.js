@@ -9,6 +9,7 @@ import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { QRCode } from "react-qr-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useSelector } from "react-redux";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
@@ -19,6 +20,7 @@ const Tables = () => {
 
   const [show, setShow] = useState(false);
   const [selectedTable, setSelectedTable] = useState({});
+  const user = useSelector((state) => state);
 
   const handleShare = (table) => {
     setSelectedTable(table);
@@ -26,7 +28,7 @@ const Tables = () => {
   };
 
   useEffect(() => {
-    API.get("/restaurant/4/tables").then((result) => {
+    API.get(`/restaurant/${user.user_id}/tables`).then((result) => {
       setTables(result.data.data);
     });
   }, []);
@@ -41,7 +43,7 @@ const Tables = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.post("/restaurant/4/tables", {
+    API.post(`/restaurant/${user.user_id}/tables`, {
       label: input.label,
     }).then((res) => {
       setTables(res.data.data);
@@ -52,14 +54,14 @@ const Tables = () => {
 
   const handleDelete = (tableId) => {
     if (window.confirm("Are you sure you want to delete this table?")) {
-      API.delete("/restaurant/4/tables/" + tableId).then((res) => {
+      API.delete(`/restaurant/${user.user_id}/tables/${tableId}`).then((res) => {
         setTables(res.data.data);
       });
     }
   };
 
   const handleEdit = (tableId) => {
-    API.get("/restaurant/4/tables/" + tableId).then((res) => {
+    API.get(`/restaurant/${user.user_id}/tables/${tableId}`).then((res) => {
       setEditingTable(...res.data.data);
       setEdit(true);
     });
@@ -76,7 +78,7 @@ const Tables = () => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    API.put("/restaurant/4/tables/" + editingTable.table_id, {
+    API.put(`/restaurant/${user.user_id}/tables/${editingTable.table_id}`, {
       label: editingTable.label,
     }).then((res) => {
       setTables(res.data.data);

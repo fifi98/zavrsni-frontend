@@ -5,6 +5,7 @@ import MainContainer from "../../components/MainContainer";
 import AddForm from "../../components/MenuCategories/AddForm";
 import EditForm from "../../components/MenuCategories/EditForm";
 import CategoryRow from "../../components/MenuCategories/CategoryRow";
+import { useSelector } from "react-redux";
 
 const Tables = () => {
   const [tables, setCategories] = useState([]);
@@ -12,9 +13,10 @@ const Tables = () => {
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState({ label: "" });
+  const user = useSelector((state) => state);
 
   useEffect(() => {
-    API.get("/restaurant/4/menu/categories").then(result => {
+    API.get(`/restaurant/${user.user_id}/menu/categories`).then((result) => {
       setCategories(result.data.data);
     });
   }, []);
@@ -23,50 +25,50 @@ const Tables = () => {
     setAdd(!add);
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setInput({ label: event.target.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    API.post("/restaurant/4/menu/categories", {
-      categoryName: input.label
-    }).then(res => {
+    API.post(`/restaurant/${user.user_id}/menu/categories`, {
+      categoryName: input.label,
+    }).then((res) => {
       setCategories(res.data.data);
       setAdd(false);
       setInput({ label: "" });
     });
   };
 
-  const handleDelete = categoryId => {
-    if (window.confirm("Are you sure you want to delete this category?")) {
-      API.delete("/restaurant/4/menu/categories/" + categoryId).then(res => {
+  const handleDelete = (categoryId) => {
+    if (window.confirm("Are you sure you want to delete this category? Note: all items in the category will also be deleted!")) {
+      API.delete(`/restaurant/${user.user_id}/menu/categories/${categoryId}`).then((res) => {
         setCategories(res.data.data);
       });
     }
   };
 
-  const handleEdit = tableId => {
-    API.get("/restaurant/4/tables/" + tableId).then(res => {
+  const handleEdit = (tableId) => {
+    API.get(`/restaurant/${user.user_id}/tables/${tableId}`).then((res) => {
       setEditingTable(...res.data.data);
       setEdit(true);
     });
   };
 
-  const handleEditChange = event => {
+  const handleEditChange = (event) => {
     setEditingTable({ ...editingTable, label: event.target.value });
   };
 
-  const handleCancel = event => {
+  const handleCancel = (event) => {
     event.preventDefault();
     setEdit(false);
   };
 
-  const handleSave = event => {
+  const handleSave = (event) => {
     event.preventDefault();
-    API.put("/restaurant/4/tables/" + editingTable.table_id, {
-      label: editingTable.label
-    }).then(res => {
+    API.put(`/restaurant/${user.user_id}/tables/${editingTable.table_id}`, {
+      label: editingTable.label,
+    }).then((res) => {
       setCategories(res.data.data);
       setEdit(false);
       setEditingTable({});
@@ -77,12 +79,7 @@ const Tables = () => {
     <MainContainer icon={faBars} handleAdd={handleAdd} title="Menu categories">
       {add && <AddForm handleSubmit={handleSubmit} handleChange={handleChange} input={input} />}
       {edit && (
-        <EditForm
-          handleSave={handleSave}
-          handleEditChange={handleEditChange}
-          handleCancel={handleCancel}
-          editingTable={editingTable}
-        />
+        <EditForm handleSave={handleSave} handleEditChange={handleEditChange} handleCancel={handleCancel} editingTable={editingTable} />
       )}
 
       {tables.length === 0 ? (
@@ -90,7 +87,7 @@ const Tables = () => {
       ) : (
         <table className="table table-hover table-borderless">
           <tbody>
-            {tables.map(table => (
+            {tables.map((table) => (
               <CategoryRow table={table} handleEdit={handleEdit} handleDelete={handleDelete} />
             ))}
           </tbody>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "../css/Login.css";
 import Input from "../components/Input";
 import API from "../util/api";
+import { useDispatch } from "react-redux";
+import { signIn } from "../actions/index";
 
 const Login = (props) => {
   const [input, setInput] = useState({
@@ -10,6 +12,7 @@ const Login = (props) => {
     password: "",
   });
   const [error, setError] = useState({ error: false, message: "" });
+  const dispatch = useDispatch();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -25,8 +28,10 @@ const Login = (props) => {
     })
       .then((res) => {
         if (res.data.success) {
+          dispatch(signIn(res.data.user));
+
           if (res.data.user.type === "restaurant") {
-            props.history.push("/restaurant");
+            props.history.push("/restaurant/orders");
           } else {
             props.history.push("/customer");
           }

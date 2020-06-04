@@ -5,6 +5,7 @@ import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import AddForm from "../../components/MenuFood/AddForm";
 import FoodCard from "../../components/MenuFood/FoodCard";
 import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const Tables = () => {
   const [categories, setCategories] = useState([]);
@@ -12,14 +13,14 @@ const Tables = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [add, setAdd] = useState(false);
-
   const [input, setInput] = useState({ name: "", description: "", price: "", categoryId: 0 });
+  const user = useSelector((state) => state);
 
   const handleSubmit = (event) => {
     console.log(input);
 
     event.preventDefault();
-    API.post("/restaurant/4/menu/categories/" + input.categoryId + "/items", input).then((response) => {
+    API.post(`/restaurant/${user.user_id}/menu/categories/${input.categoryId}/items`, input).then((response) => {
       if (selectedCategory === parseInt(input.categoryId)) setMenuItems(response.data.data);
       setAdd(false);
       setInput({ name: "", description: "", price: "", categoryId: selectedCategory });
@@ -31,7 +32,7 @@ const Tables = () => {
   };
 
   useEffect(() => {
-    API.get("/restaurant/4/menu/categories").then((result) => {
+    API.get(`/restaurant/${user.user_id}/menu/categories`).then((result) => {
       setCategories(result.data.data);
       //Select the first category by default
       setInput((i) => ({ ...i, categoryId: result.data.data[0].category_id }));
@@ -41,7 +42,7 @@ const Tables = () => {
 
   useEffect(() => {
     //Dohvati jela za tu kategoriju
-    API.get("/restaurant/4/menu/categories/" + selectedCategory + "/items").then((result) => {
+    API.get(`/restaurant/${user.user_id}/menu/categories/${selectedCategory}/items`).then((result) => {
       setMenuItems(result.data.data);
     });
   }, [selectedCategory]);
@@ -57,7 +58,7 @@ const Tables = () => {
   const handleDelete = (item_id) => {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
 
-    API.delete(`/restaurant/4/menu/categories/${selectedCategory}/items/${item_id}`).then((results) => {
+    API.delete(`/restaurant/${user.user_id}/menu/categories/${selectedCategory}/items/${item_id}`).then((results) => {
       setMenuItems((old) => old.filter((item) => item.item_id !== item_id));
     });
   };
