@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MainContainer from "../../components/MainContainer";
 import OrderDetails from "../../components/restaurant/OrderDetails";
-import OrderRow from "../../components/restaurant/OrderRow";
+import OrderRow from "../../components/user/OrderRow";
 import api from "../../util/api";
 import { faClipboardCheck } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "react-bootstrap";
