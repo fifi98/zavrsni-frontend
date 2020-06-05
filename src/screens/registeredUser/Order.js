@@ -93,6 +93,7 @@ const Orders = (props) => {
         return;
       }
 
+      //If the table is free, connect to the socket and load items
       setTable(result.data.data);
 
       socket.connect();
@@ -108,7 +109,7 @@ const Orders = (props) => {
         setOrderStatus(ORDER.COMPLETED);
       });
 
-      API.get("/restaurant/4/menu/categories").then((result) => {
+      API.get(`/restaurant/${result.data.data.restaurant_id}/menu/categories`).then((result) => {
         setCategories(result.data.data);
         //Select the first category by default
         setSelectedCategory(result.data.data[0].category_id);
@@ -118,7 +119,7 @@ const Orders = (props) => {
 
   useEffect(() => {
     //Dohvati jela za tu kategoriju
-    API.get("/restaurant/4/menu/categories/" + selectedCategory + "/items").then((result) => {
+    API.get(`/restaurant/${table.restaurant_id}/menu/categories/${selectedCategory}/items`).then((result) => {
       setMenuItems(result.data.data);
     });
   }, [selectedCategory]);
