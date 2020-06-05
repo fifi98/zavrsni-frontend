@@ -20,7 +20,7 @@ const Navbar = ({ history }) => {
 
   return (
     <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
-      <nav className="nav nav-underline mr-auto">{user.name === null ? "Ordering as Guest" : user.name}</nav>
+      <nav className="nav nav-underline mr-auto">{user.name === null ? "Ordering as guest" : user.name}</nav>
       <nav className="nav nav-underline">
         {user.name === null ? (
           <button onClick={handleSignIn} className="btn btn-dark">

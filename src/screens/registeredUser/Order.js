@@ -10,9 +10,12 @@ import io from "socket.io-client";
 import OrderStatusModal from "../../components/user/OrderStatusModal";
 import TableConfirmation from "../../components/user/TableConfirmation";
 import OrderConfirmation from "../../components/user/OrderConfirmation";
+import TableOccupied from "../../components/user/TableOccupied";
+import { useSelector } from "react-redux";
 
 const Orders = (props) => {
   const ORDER = {
+    CANCELED: -1,
     NEW: 0,
     PLACED: 1,
     SERVED: 2,
@@ -35,6 +38,8 @@ const Orders = (props) => {
   const [confirmed, setConfirmed] = useState(false);
   const [table, setTable] = useState({});
 
+  const user = useSelector((state) => state);
+
   //Sharing ID stola
   const { tableID } = useParams();
 
@@ -43,6 +48,7 @@ const Orders = (props) => {
     // Prepare the message we are going to send to the server
     const orderMessage = {
       table_id: tableID,
+      customer_id: user.user_id,
       items: [],
     };
 
@@ -81,26 +87,32 @@ const Orders = (props) => {
   useEffect(() => {
     // Check if current table is occupied
     API.get(`/restaurant/table/${tableID}`).then((result) => {
+      if (result.data.data.status_id !== 1) {
+        // Table is occupied
+        setOrderStatus(ORDER.CANCELED);
+        return;
+      }
+
       setTable(result.data.data);
-    });
 
-    socket.connect();
+      socket.connect();
 
-    // When the order has been served
-    socket.on("orderServed", (order) => {
-      setOrderStatus(ORDER.SERVED);
-      setOrderID(order.order_id);
-    });
+      // When the order has been served
+      socket.on("orderServed", (order) => {
+        setOrderStatus(ORDER.SERVED);
+        setOrderID(order.order_id);
+      });
 
-    // When the order is completed
-    socket.on("orderComplete", () => {
-      setOrderStatus(ORDER.COMPLETED);
-    });
+      // When the order is completed
+      socket.on("orderComplete", () => {
+        setOrderStatus(ORDER.COMPLETED);
+      });
 
-    API.get("/restaurant/4/menu/categories").then((result) => {
-      setCategories(result.data.data);
-      //Select the first category by default
-      setSelectedCategory(result.data.data[0].category_id);
+      API.get("/restaurant/4/menu/categories").then((result) => {
+        setCategories(result.data.data);
+        //Select the first category by default
+        setSelectedCategory(result.data.data[0].category_id);
+      });
     });
   }, []);
 
@@ -124,8 +136,6 @@ const Orders = (props) => {
     // Do not fire the event if clicked on quantity input
     if (event.target.type === "number") return;
 
-    console.log(addedItems);
-
     if (addedItems.find((i) => i.item_id === item.item_id)) {
       // Remove the item
       setAddedItems((old) => old.filter((i) => i.item_id !== item.item_id));
@@ -139,8 +149,13 @@ const Orders = (props) => {
     setAddedItems(addedItems.map((item) => (item.item_id === itemId ? { ...item, quantity: quantity } : item)));
   };
 
+  // If the table is occupied, the order is canceled
+  if (orderStatus === ORDER.CANCELED) return <TableOccupied />;
+
+  // When the order is completed
   if (orderStatus === ORDER.COMPLETED) return <OrderConfirmation />;
 
+  // When user opens the web page ask him to confirm he is sitting at the right table
   if (!confirmed) return <TableConfirmation table={table} setConfirmed={setConfirmed} />;
 
   return (
