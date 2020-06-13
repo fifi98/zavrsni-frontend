@@ -65,6 +65,9 @@ const Login = (props) => {
         <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={submitHandler}>
           Sign in
         </button>
+        <div className="m-4 text-center">
+          <Link to="/register">Forgot your password?</Link>
+        </div>
       </form>
     </div>
   );

@@ -15,22 +15,22 @@ const Login = () => {
     password: "",
     restaurantName: "",
     restaurantAddress: "",
-    restaurantTelephone: ""
+    restaurantTelephone: "",
   });
 
   const [error, setError] = useState(false);
 
-  const submitHandler = event => {
+  const submitHandler = (event) => {
     event.preventDefault();
 
     if (input.email.length === 0 || input.password.length === 0) setError({ ...error, error: true });
 
     API.post("/user/register", input)
-      .then(res => console.log(res))
-      .catch(err => setError(true));
+      .then((res) => console.log(res))
+      .catch((err) => setError(true));
   };
 
-  const changeHandler = event => {
+  const changeHandler = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
 
@@ -39,20 +39,14 @@ const Login = () => {
       <form className="form-signin">
         <div className="text-center mb-4">
           <h1 className="h3 mb-3 font-weight-normal">Register</h1>
-          <p>Please login below using your credentials.</p>
+          <p>Please enter your information in order to create an account.</p>
         </div>
 
         <div className="form-label-group d-flex">
           <div className="btn-group btn-group-toggle w-100">
             <label className={"btn btn-outline-dark " + (input.userType === "customer" ? "active" : "")}>
               <FontAwesomeIcon icon={faUser} />
-              <input
-                type="radio"
-                name="userType"
-                value="customer"
-                checked={input.userType === "customer"}
-                onChange={changeHandler}
-              />{" "}
+              <input type="radio" name="userType" value="customer" checked={input.userType === "customer"} onChange={changeHandler} />{" "}
               Customer
             </label>
             <label className={"btn btn-outline-dark " + (input.userType === "restaurant" ? "active" : "")}>
@@ -70,15 +64,7 @@ const Login = () => {
         </div>
 
         {input.userType === "customer" ? (
-          <Input
-            type="text"
-            name="name"
-            label="Full name"
-            value={input.name}
-            error={error.error}
-            onChange={changeHandler}
-            autoFocus
-          />
+          <Input type="text" name="name" label="Full name" value={input.name} error={error.error} onChange={changeHandler} autoFocus />
         ) : (
           <Fragment>
             <Input
@@ -109,23 +95,9 @@ const Login = () => {
           </Fragment>
         )}
 
-        <Input
-          type="email"
-          name="email"
-          label="Email address"
-          value={input.email}
-          error={error.error}
-          onChange={changeHandler}
-        />
+        <Input type="email" name="email" label="Email address" value={input.email} error={error.error} onChange={changeHandler} />
 
-        <Input
-          type="password"
-          name="password"
-          label="Password"
-          value={input.password}
-          error={error.error}
-          onChange={changeHandler}
-        />
+        <Input type="password" name="password" label="Password" value={input.password} error={error.error} onChange={changeHandler} />
 
         <div className="checkbox mb-3">
           <Link to="/login">Already have an account?</Link>

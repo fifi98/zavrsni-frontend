@@ -33,7 +33,6 @@ const Restaurant = () => {
     socket.on("orderUpdate", (msg) => {
       setOrders((old) => [...old, msg]);
       setServed((old) => old.filter((order) => order.order_id != msg.order_id));
-      console.log(msg);
     });
 
     // On receipt request
@@ -61,7 +60,7 @@ const Restaurant = () => {
   // When an order is marked as served
   const handleServeOrder = (order_id) => {
     // Send order served message to the server
-    socket.emit("orderServed", { order_id: order_id });
+    socket.emit("orderServed", { order_id });
 
     // Remove the order from New Orders
     const order = orders.find((o) => o.order_id == order_id);
@@ -73,7 +72,7 @@ const Restaurant = () => {
 
   const handlePaidOrder = (order_id) => {
     //
-    socket.emit("orderComplete", { order_id: order_id });
+    socket.emit("orderComplete", { order_id });
     setShowOrderDetails(false);
     setServed((old) => old.filter((order) => order.order_id !== order_id));
   };

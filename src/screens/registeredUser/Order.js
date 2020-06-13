@@ -11,7 +11,8 @@ import OrderStatusModal from "../../components/user/OrderStatusModal";
 import TableConfirmation from "../../components/user/TableConfirmation";
 import OrderConfirmation from "../../components/user/OrderConfirmation";
 import TableOccupied from "../../components/user/TableOccupied";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { signIn } from "../../actions/index";
 
 const Orders = (props) => {
   const ORDER = {
@@ -39,6 +40,8 @@ const Orders = (props) => {
   const [table, setTable] = useState({});
 
   const user = useSelector((state) => state);
+
+  const dispatch = useDispatch();
 
   //Sharing ID stola
   const { tableID } = useParams();
@@ -85,6 +88,12 @@ const Orders = (props) => {
   };
 
   useEffect(() => {
+    API.post("/user/verify").then((res) => {
+      if (res.status === 200) {
+        dispatch(signIn(res.data.data));
+      }
+    });
+
     // Check if current table is occupied
     API.get(`/restaurant/table/${tableID}`).then((result) => {
       if (result.data.data.status_id !== 1) {
@@ -147,7 +156,7 @@ const Orders = (props) => {
   };
 
   const handleQuantityChange = (itemId, quantity) => {
-    setAddedItems(addedItems.map((item) => (item.item_id === itemId ? { ...item, quantity: quantity } : item)));
+    setAddedItems(addedItems.map((item) => (item.item_id === itemId ? { ...item, quantity } : item)));
   };
 
   // If the table is occupied, the order is canceled
@@ -164,12 +173,6 @@ const Orders = (props) => {
       <Navbar {...props} />
       <div className="row dashboard">
         <div className="col-xs-12 col-md-12 col-lg-3">
-          {/* {orderPlaced && (
-            <Alert variant="success" className="mt-2">
-              Order status: <b>Placed</b>
-            </Alert>
-          )} */}
-
           <AddedItems
             orderItems={orderItems}
             addedItems={addedItems}

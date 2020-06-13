@@ -21,15 +21,15 @@ const OrderDetails = ({ order, shown, onHide, handleServeOrder, handlePaidOrder 
               <tr key={item.item_id} className={item.served ? "table-success" : ""}>
                 <td>{item.quantity}</td>
                 <td>{item.name}</td>
-                <td>{item.price} kn</td>
-                <td className="text-right">{item.price * item.quantity} kn</td>
+                <td>${item.price}</td>
+                <td className="text-right">${item.price * item.quantity}</td>
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr>
               <td colSpan="4" className="text-right">
-                {order.total} kn
+                ${order.total}
               </td>
             </tr>
           </tfoot>

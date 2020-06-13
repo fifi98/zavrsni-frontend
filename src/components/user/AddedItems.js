@@ -6,8 +6,8 @@ import { Row, Col, Badge } from "react-bootstrap";
 const ListItem = ({ item, served }) => {
   return (
     <li className={`list-group-item d-flex justify-content-between align-items-center ${served ? "list-group-item-success" : ""}`}>
-      {item.quantity} × {item.name} ({item.price} kn)
-      <Badge variant={`${served ? "light" : "secondary"}`}>{item.price * item.quantity} kn</Badge>
+      {item.quantity} × {item.name} (${item.price})
+      <Badge variant={`${served ? "light" : "secondary"}`}>${item.price * item.quantity}</Badge>
     </li>
   );
 };
@@ -52,7 +52,7 @@ const AddedItems = ({ addedItems, handleOrder, orderStatus, handleRequestReceipt
           {(orderStatus === 0 || orderStatus === 2) && addedItems.length > 0 && (
             <Col>
               <button className="btn btn-primary w-100" onClick={handleOrder}>
-                Click to order - {getAddedItemsCost()} kn
+                Click to order - ${getAddedItemsCost()}
               </button>
             </Col>
           )}
@@ -60,7 +60,7 @@ const AddedItems = ({ addedItems, handleOrder, orderStatus, handleRequestReceipt
           {orderStatus === 2 && (
             <Col>
               <button className="btn btn-primary w-100" onClick={handleRequestReceipt}>
-                Request receipt - {getOrderItemsCost()} kn
+                Request receipt - ${getOrderItemsCost()}
               </button>
             </Col>
           )}

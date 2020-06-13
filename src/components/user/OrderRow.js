@@ -7,7 +7,7 @@ const OrderRow = ({ order, handleShowDetails }) => {
     <tr className="border-bottom border-gray">
       <td>{moment(order.date_time).format("MMM Do, H:mm:ss")}</td>
       <td>{order.restaurant}</td>
-      <td>{order.total} kn</td>
+      <td>${order.total}</td>
 
       <td className="text-right">
         <Button size="sm" onClick={() => handleShowDetails(order.order_id)}>

@@ -1,6 +1,8 @@
 import React from "react";
 import API from "../util/api";
 import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { signOut } from "../actions/";
 
 const Navbar = ({ history }) => {
@@ -27,9 +29,16 @@ const Navbar = ({ history }) => {
             Sign in
           </button>
         ) : (
-          <button onClick={handleLogout} className="btn btn-dark">
-            Logout
-          </button>
+          <>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <FontAwesomeIcon icon={faUserCircle} size="lg" fixedWidth />
+              </a>
+            </li>
+            <button onClick={handleLogout} className="btn btn-dark">
+              Logout
+            </button>
+          </>
         )}
       </nav>
     </nav>

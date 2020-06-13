@@ -10,7 +10,7 @@ const FoodCard = ({ item, onClick, selected, addedItems, handleQuantityChange })
             <p className="card-text">
               <small className={`${selected ? "text-white" : "text-muted"}`}>{item.description}</small>
             </p>
-            <p className="card-text">{item.price}kn</p>
+            <p className="card-text">${item.price}</p>
           </div>
         </div>
         {selected && (

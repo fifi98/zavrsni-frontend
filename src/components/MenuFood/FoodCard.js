@@ -12,7 +12,7 @@ const FoodCard = ({ item, handleDelete }) => {
             <p className="card-text">
               <small className="text-muted">{item.description}</small>
             </p>
-            <p className="card-text">{item.price}kn</p>
+            <p className="card-text">${item.price}</p>
           </div>
         </div>
         <div className="col-4 col-md-1 my-auto text-center">
