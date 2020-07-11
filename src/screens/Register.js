@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUtensils } from "@fortawesome/free-solid-svg-icons";
-import Input from "../components/Input";
+import Input from "../components/ui/Input";
 import API from "../util/api";
 
 import "../css/Login.css";

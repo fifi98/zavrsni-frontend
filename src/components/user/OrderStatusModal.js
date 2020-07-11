@@ -26,7 +26,6 @@ const OrderStatusModal = ({ orderStatus }) => {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    // if (orderStatus === 0) return;
     setShown(true);
   }, [orderStatus]);
 

@@ -9,7 +9,6 @@ const CategoryRow = ({ table, handleEdit, handleDelete }) => {
       <td>{table.category}</td>
       <td className="text-center">
         <Badge variant="secondary">{table.num_items} items</Badge>
-        {/* <span className="badge badge-success">{table.num_items} items</span> */}
       </td>
       <td className="text-right">
         <FontAwesomeIcon

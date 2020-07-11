@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
-import MainContainer from "../../components/MainContainer";
+import MainContainer from "../../components/ui/MainContainer";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import AddForm from "../../components/MenuFood/AddForm";
 import FoodCard from "../../components/MenuFood/FoodCard";

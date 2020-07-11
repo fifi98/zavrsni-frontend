@@ -1,5 +1,5 @@
 import React from "react";
-import MainContainer from "../MainContainer";
+import MainContainer from "../ui/MainContainer";
 import Order from "./Order";
 
 const NewOrders = ({ orders, handleOrderPreparation }) => {

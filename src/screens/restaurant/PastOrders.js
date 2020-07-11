@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MainContainer from "../../components/MainContainer";
+import MainContainer from "../../components/ui/MainContainer";
 import OrderDetails from "../../components/restaurant/OrderDetails";
 import OrderRow from "../../components/restaurant/OrderRow";
 import api from "../../util/api";

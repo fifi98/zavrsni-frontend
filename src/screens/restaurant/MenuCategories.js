@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import MainContainer from "../../components/MainContainer";
+import MainContainer from "../../components/ui/MainContainer";
 import AddForm from "../../components/MenuCategories/AddForm";
 import EditForm from "../../components/MenuCategories/EditForm";
 import CategoryRow from "../../components/MenuCategories/CategoryRow";

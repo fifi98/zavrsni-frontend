@@ -1,8 +1,6 @@
 import React from "react";
 
-const Input = props => {
-  const { type, name, error, label, value, onChange, autoFocus } = props;
-
+const Input = ({ type, name, error, label, value, onChange, autoFocus }) => {
   return (
     <div className="form-label-group">
       <input

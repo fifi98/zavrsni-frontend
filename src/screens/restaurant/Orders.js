@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import RestaurantTable from "../../components/restaurant/Table";
-import MainContainer from "../../components/MainContainer";
+import MainContainer from "../../components/ui/MainContainer";
 import ServedOrders from "../../components/restaurant/ServedOrders";
 import OrderDetails from "../../components/restaurant/OrderDetails";
 import NewOrders from "../../components/restaurant/NewOrders";
@@ -24,10 +24,17 @@ const Restaurant = () => {
     socket.connect();
 
     // Update table status when tableData is received from the server
-    socket.on("tableData", (msg) => setTables([...msg]));
+    socket.on("tableData", (msg) => {
+      setTables([...msg]);
+      console.log(msg);
+    });
 
     // Show the new order when it's received
-    socket.on("order", (msg) => setOrders((old) => [...old, msg]));
+    socket.on("order", (msg) => {
+      console.log(msg);
+      setTables(tables.map((table) => (table.table_name === msg.table_name ? { ...table, status: "Occupied" } : table)));
+      setOrders((old) => [...old, msg]);
+    });
 
     // On order update
     socket.on("orderUpdate", (msg) => {

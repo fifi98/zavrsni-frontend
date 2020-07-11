@@ -5,7 +5,7 @@ import Register from "./screens/Register";
 import Order from "./screens/registeredUser/Order";
 import RestaurantRoutes from "./routes/RestaurantRoutes";
 import CustomerRoutes from "./routes/CustomerRoutes";
-import PrivateRoute from "./components/Routes/PrivateRoute";
+import PrivateRoute from "./components/routes/PrivateRoute";
 
 import "popper.js";
 import "jquery/src/jquery";

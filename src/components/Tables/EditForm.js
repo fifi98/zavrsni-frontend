@@ -8,7 +8,6 @@ const EditForm = ({ editingTable, handleSave, handleEditChange, handleCancel }) 
           <label htmlFor="exampleInputEmail1">Table label</label>
           <input type="text" className="form-control" value={editingTable.label} onChange={handleEditChange} />
         </div>
-
         <button type="submit" className="btn btn-primary mr-2">
           Save
         </button>

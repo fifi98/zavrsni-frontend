@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/ui/Navbar";
 import Order from "../../screens/registeredUser/Order";
 import AddedItems from "../../components/user/AddedItems";
 

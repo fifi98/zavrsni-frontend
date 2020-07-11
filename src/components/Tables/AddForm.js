@@ -8,7 +8,6 @@ const AddForm = ({ handleSubmit, handleChange, input }) => {
           <label htmlFor="exampleInputEmail1">Table label</label>
           <input type="text" className="form-control" value={input.label} onChange={handleChange} />
         </div>
-
         <button type="submit" className="btn btn-primary">
           Add
         </button>

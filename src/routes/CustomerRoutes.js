@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/ui/Navbar";
 import Sidebar from "../components/restaurant/Sidebar";
-import PrivateRoute from "../components/Routes/PrivateRoute";
+import PrivateRoute from "../components/routes/PrivateRoute";
 import PastOrders from "../screens/registeredUser/PastOrders";
 
 const CustomerRoutes = (props) => {

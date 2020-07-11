@@ -4,9 +4,9 @@ import Tables from "../screens/restaurant/Tables";
 import MenuFood from "../screens/restaurant/MenuFood";
 import MenuCategories from "../screens/restaurant/MenuCategories";
 import PastOrders from "../screens/restaurant/PastOrders";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/ui/Navbar";
 import Sidebar from "../components/restaurant/Sidebar";
-import PrivateRoute from "../components/Routes/PrivateRoute";
+import PrivateRoute from "../components/routes/PrivateRoute";
 
 const RestaurantRoutes = (props) => {
   return (

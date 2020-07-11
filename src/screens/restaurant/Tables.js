@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
+import MainContainer from "../../components/ui/MainContainer";
+import TableRow from "../../components/tables/TableRow";
+import EditForm from "../../components/tables/EditForm";
+import AddForm from "../../components/tables/AddForm";
 import API from "../../util/api";
-import { faChair, faPrint, faLink } from "@fortawesome/free-solid-svg-icons";
-import MainContainer from "../../components/MainContainer";
-import AddForm from "../../components/Tables/AddForm";
-import TableRow from "../../components/Tables/TableRow";
-import EditForm from "../../components/Tables/EditForm";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { QRCode } from "react-qr-svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChair, faPrint, faLink } from "@fortawesome/free-solid-svg-icons";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
+import { QRCode } from "react-qr-svg";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);

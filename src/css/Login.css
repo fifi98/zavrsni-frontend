@@ -15,17 +15,6 @@ body {
   color: #333;
 }
 
-/* .nav-link.active {
-  background-color: #343a40 !important;
-  color: #fff !important;
-}
-.nav-link.active:hover {
-  color: #fff !important;
-}
-.nav-link:hover {
-  color: #545b62 !important;
-} */
-
 .container-fluid {
   background-color: #f4f5f9;
 }
@@ -34,7 +23,6 @@ body {
   padding-top: 60px;
 }
 body {
-  /* padding-top: 54px; */
   background-color: #f4f5f9;
 }
 

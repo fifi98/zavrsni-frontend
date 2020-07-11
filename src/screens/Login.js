@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "../css/Login.css";
-import Input from "../components/Input";
+import Input from "../components/ui/Input";
 import API from "../util/api";
 import { useDispatch } from "react-redux";
 import { signIn } from "../actions/index";
+import { Link } from "react-router-dom";
 
 const Login = (props) => {
   const [input, setInput] = useState({

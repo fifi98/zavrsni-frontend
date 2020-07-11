@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import API from "../../util/api";
-import MainContainer from "../../components/MainContainer";
+import MainContainer from "../../components/ui/MainContainer";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import FoodCard from "../../components/user/FoodCard";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/ui/Navbar";
 import AddedItems from "../../components/user/AddedItems";
 import io from "socket.io-client";
 import OrderStatusModal from "../../components/user/OrderStatusModal";
