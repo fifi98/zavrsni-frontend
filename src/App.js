@@ -6,6 +6,7 @@ import Order from "./screens/registeredUser/Order";
 import RestaurantRoutes from "./routes/RestaurantRoutes";
 import CustomerRoutes from "./routes/CustomerRoutes";
 import PrivateRoute from "./components/routes/PrivateRoute";
+import PublicRoute from "./components/routes/PublicRoute";
 
 import "popper.js";
 import "jquery/src/jquery";
@@ -17,11 +18,11 @@ function App() {
     <Router>
       <Switch>
         {/* Public routes */}
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <PublicRoute path="/login" component={Login} />
+        <PublicRoute path="/register" component={Register} />
 
         {/* Restaurant owner routes */}
-        <Route path="/restaurant" component={RestaurantRoutes} />
+        <PrivateRoute path="/restaurant" component={RestaurantRoutes} />
 
         {/* Guest users and registered users routes */}
         <Route path="/order/:tableID" component={Order} />

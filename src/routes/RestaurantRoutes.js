@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Orders from "../screens/restaurant/Orders";
 import Tables from "../screens/restaurant/Tables";
 import MenuFood from "../screens/restaurant/MenuFood";
@@ -7,8 +7,14 @@ import PastOrders from "../screens/restaurant/PastOrders";
 import Navbar from "../components/ui/Navbar";
 import Sidebar from "../components/restaurant/Sidebar";
 import PrivateRoute from "../components/routes/PrivateRoute";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const RestaurantRoutes = (props) => {
+  const user = useSelector((state) => state);
+
+  if (user.user_type !== "restaurant") return <Redirect to={"/login"} />;
+
   return (
     <>
       <Navbar {...props} />

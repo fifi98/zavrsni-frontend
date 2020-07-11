@@ -10,6 +10,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
   const dispatch = useDispatch();
 
+  // Check if JWT is valid and if user has access to that route (user type)
   useEffect(() => {
     API.post("/user/verify")
       .then((res) => {
