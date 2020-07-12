@@ -1,12 +1,12 @@
 import React from "react";
 
-const EditForm = ({ handleSave, editingTable, handleEditChange, handleCancel }) => {
+const EditForm = ({ handleSave, editingCategory, handleEditChange, handleCancel }) => {
   return (
     <div className="alert alert-light border-bottom border-gray mb-4 pb-4" role="alert">
       <form onSubmit={handleSave}>
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Table label</label>
-          <input type="text" className="form-control" value={editingTable.label} onChange={handleEditChange} />
+          <label htmlFor="exampleInputEmail1">Category name</label>
+          <input type="text" className="form-control" value={editingCategory.category} onChange={handleEditChange} />
         </div>
         <button type="submit" className="btn btn-primary mr-2">
           Save

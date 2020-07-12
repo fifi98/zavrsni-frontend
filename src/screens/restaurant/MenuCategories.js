@@ -9,10 +9,10 @@ import { useSelector } from "react-redux";
 
 const Tables = () => {
   const [tables, setCategories] = useState([]);
-  const [editingTable, setEditingTable] = useState({});
+  const [editingCategory, setEditingCategory] = useState({});
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [input, setInput] = useState({ label: "" });
+  const [input, setInput] = useState({ category: "" });
   const user = useSelector((state) => state);
 
   useEffect(() => {
@@ -26,17 +26,17 @@ const Tables = () => {
   };
 
   const handleChange = (event) => {
-    setInput({ label: event.target.value });
+    setInput({ category: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     API.post(`/restaurant/${user.user_id}/menu/categories`, {
-      categoryName: input.label,
+      categoryName: input.category,
     }).then((res) => {
       setCategories(res.data.data);
       setAdd(false);
-      setInput({ label: "" });
+      setInput({ category: "" });
     });
   };
 
@@ -48,15 +48,15 @@ const Tables = () => {
     }
   };
 
-  const handleEdit = (tableId) => {
-    API.get(`/restaurant/${user.user_id}/tables/${tableId}`).then((res) => {
-      setEditingTable(...res.data.data);
+  const handleEdit = (categoryId) => {
+    API.get(`/restaurant/${user.user_id}/menu/categories/${categoryId}`).then((res) => {
+      setEditingCategory(...res.data.data);
       setEdit(true);
     });
   };
 
   const handleEditChange = (event) => {
-    setEditingTable({ ...editingTable, label: event.target.value });
+    setEditingCategory({ ...editingCategory, category: event.target.value });
   };
 
   const handleCancel = (event) => {
@@ -66,12 +66,12 @@ const Tables = () => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    API.put(`/restaurant/${user.user_id}/tables/${editingTable.table_id}`, {
-      label: editingTable.label,
+    API.put(`/restaurant/${user.user_id}/menu/categories/${editingCategory.category_id}`, {
+      category: editingCategory.category,
     }).then((res) => {
       setCategories(res.data.data);
       setEdit(false);
-      setEditingTable({});
+      setEditingCategory({});
     });
   };
 
@@ -79,7 +79,12 @@ const Tables = () => {
     <MainContainer icon={faBars} handleAdd={handleAdd} title="Menu categories">
       {add && <AddForm handleSubmit={handleSubmit} handleChange={handleChange} input={input} />}
       {edit && (
-        <EditForm handleSave={handleSave} handleEditChange={handleEditChange} handleCancel={handleCancel} editingTable={editingTable} />
+        <EditForm
+          handleSave={handleSave}
+          handleEditChange={handleEditChange}
+          handleCancel={handleCancel}
+          editingCategory={editingCategory}
+        />
       )}
 
       {tables.length === 0 ? (
