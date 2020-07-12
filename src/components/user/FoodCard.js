@@ -4,7 +4,7 @@ const FoodCard = ({ item, onClick, selected, addedItems, handleQuantityChange })
   return (
     <div className={`card food-card mb-3 ${selected ? "text-white bg-primary" : ""} mt-2`} onClick={(event) => onClick(event, item)}>
       <div className="row no-gutters">
-        <div className="col-10">
+        <div className="col-9 col-sm-10 col-md-10 col-lg-11 col-xl-11">
           <div className="card-body">
             <h5 className="card-title">{item.name}</h5>
             <p className="card-text">
@@ -14,7 +14,7 @@ const FoodCard = ({ item, onClick, selected, addedItems, handleQuantityChange })
           </div>
         </div>
         {selected && (
-          <div className="col-2 align-self-center">
+          <div className="col-3 col-sm-2 col-md-2 col-lg-1 col-xl-1 align-self-center">
             <input
               name="quantity"
               className="form-control form-control-sm"
