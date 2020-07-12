@@ -16,7 +16,7 @@ const Restaurant = () => {
   const [orders, setOrders] = useState([]);
   const [served, setServed] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState({ items: [] });
-  const [socket] = useState(io("http://localhost:8080/", { autoConnect: false }));
+  const [socket] = useState(io(process.env.REACT_APP_WEBSOCKET, { autoConnect: false }));
   const user = useSelector((state) => state);
 
   // When the page loads

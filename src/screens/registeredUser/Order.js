@@ -30,7 +30,7 @@ const Orders = (props) => {
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const [addedItems, setAddedItems] = useState([]);
-  const [socket] = useState(io("http://localhost:8080/", { autoConnect: false }));
+  const [socket] = useState(io(process.env.REACT_APP_WEBSOCKET, { autoConnect: false }));
 
   const [orderStatus, setOrderStatus] = useState(ORDER.NEW);
   const [orderID, setOrderID] = useState(0);

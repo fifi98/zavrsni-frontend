@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import API from "../../util/api";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import MainContainer from "../../components/ui/MainContainer";
-import AddForm from "../../components/MenuCategories/AddForm";
-import EditForm from "../../components/MenuCategories/EditForm";
-import CategoryRow from "../../components/MenuCategories/CategoryRow";
+import AddForm from "../../components/categories/AddForm";
+import EditForm from "../../components/categories/EditForm";
+import CategoryRow from "../../components/categories/CategoryRow";
 import { useSelector } from "react-redux";
 
 const Tables = () => {

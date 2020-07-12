@@ -94,11 +94,23 @@ const Tables = () => {
           <Modal.Title>{selectedTable.label}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <QRCode bgColor="#FFFFFF" fgColor="#000000" level="Q" value={`http://localhost:3000/order/${selectedTable.sharing_id}`} />
+          <QRCode
+            bgColor="#FFFFFF"
+            fgColor="#000000"
+            level="Q"
+            value={`${process.env.REACT_APP_BASE_URL}/order/${selectedTable.sharing_id}`}
+          />
         </Modal.Body>
         <Modal.Footer>
-          <OverlayTrigger placement={"top"} overlay={<Tooltip>{"http://localhost:3000/order/" + selectedTable.sharing_id}</Tooltip>}>
-            <CopyToClipboard text={"http://localhost:3000/order/" + selectedTable.sharing_id}>
+          <OverlayTrigger
+            placement={"top"}
+            overlay={
+              <Tooltip>
+                `${process.env.REACT_APP_BASE_URL}/order/${selectedTable.sharing_id}`
+              </Tooltip>
+            }
+          >
+            <CopyToClipboard text={`${process.env.REACT_APP_BASE_URL}/order/${selectedTable.sharing_id}`}>
               <Button variant="primary" onClick={() => setShow(false)}>
                 <FontAwesomeIcon className="mr-2" icon={faLink} />
                 Copy link
