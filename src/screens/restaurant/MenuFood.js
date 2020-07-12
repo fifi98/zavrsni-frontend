@@ -17,8 +17,6 @@ const Tables = () => {
   const user = useSelector((state) => state);
 
   const handleSubmit = (event) => {
-    console.log(input);
-
     event.preventDefault();
     API.post(`/restaurant/${user.user_id}/menu/categories/${input.categoryId}/items`, input).then((response) => {
       if (selectedCategory === parseInt(input.categoryId)) setMenuItems(response.data.data);

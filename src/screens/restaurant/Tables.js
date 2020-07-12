@@ -104,11 +104,7 @@ const Tables = () => {
         <Modal.Footer>
           <OverlayTrigger
             placement={"top"}
-            overlay={
-              <Tooltip>
-                `${process.env.REACT_APP_BASE_URL}/order/${selectedTable.sharing_id}`
-              </Tooltip>
-            }
+            overlay={<Tooltip>{process.env.REACT_APP_BASE_URL + "/order/" + selectedTable.sharing_id}</Tooltip>}
           >
             <CopyToClipboard text={`${process.env.REACT_APP_BASE_URL}/order/${selectedTable.sharing_id}`}>
               <Button variant="primary" onClick={() => setShow(false)}>

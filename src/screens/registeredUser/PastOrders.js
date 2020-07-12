@@ -14,7 +14,6 @@ const PastOrders = () => {
 
   useEffect(() => {
     api.get(`/user/${user.user_id}/orders`).then((response) => {
-      console.log(response.data);
       setOrders(response.data.data);
     });
   }, []);

@@ -26,7 +26,7 @@ const Login = () => {
     if (input.email.length === 0 || input.password.length === 0) setError({ ...error, error: true });
 
     API.post("/user/register", input)
-      .then((res) => console.log(res))
+      .then((res) => (window.location.href = "/login"))
       .catch((err) => setError(true));
   };
 

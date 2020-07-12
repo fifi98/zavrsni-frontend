@@ -3,7 +3,6 @@ import moment from "moment";
 import { Button } from "react-bootstrap";
 
 const OrderRow = ({ order, handleShowDetails }) => {
-  console.log(order);
   return (
     <tr className="border-bottom border-gray">
       <td>#{order.order_id}</td>

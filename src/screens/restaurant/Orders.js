@@ -26,12 +26,10 @@ const Restaurant = () => {
     // Update table status when tableData is received from the server
     socket.on("tableData", (msg) => {
       setTables([...msg]);
-      console.log(msg);
     });
 
     // Show the new order when it's received
     socket.on("order", (msg) => {
-      console.log(msg);
       setTables(tables.map((table) => (table.table_name === msg.table_name ? { ...table, status: "Occupied" } : table)));
       setOrders((old) => [...old, msg]);
     });
